@@ -5,7 +5,7 @@ include_once 'header.php';
 
 <h3>Add Member</h3>
 <hr>
-<form class="form-horizontal" action="/add-member.php">
+<form class="form-horizontal" action="" method="post">
     <div class="form-group">
       <label class="control-label col-sm-2" for="team">Team</label>
       <div class="col-sm-10">
@@ -13,7 +13,7 @@ include_once 'header.php';
       </div>
 	</div>
 	<div class="form-group">
-      <label class="control-label col-xs-2" for="position">Postion:</label>
+      <label class="control-label col-xs-2" for="position">Position:</label>
       <div class="col-xs-8">          
         <input type="text" class="form-control" id="position" placeholder="ex. Web Designer" name="position">
       </div>		
@@ -42,10 +42,26 @@ include_once 'header.php';
 	</div>
 	<div>
 		<button class="btn btn-danger" id="Cancel">Cancel</button>
-		<button type="submit" class="btn btn-primary">Add Member</button>	
+		<input type="submit" class="btn btn-primary" name="submit"/>
 	</div>
 </form>
 
 <?php 
+
+include_once 'db/db.php';
+include_once 'objects/member.php';
+
+$database = new Database();
+$db = $database->getConnection();
+
+if(isset($_POST['submit'])){	
+	$member = new Member($db);
+	$member->testFunc();
+	if(isset($_POST['mem-username'])){
+		$member->addMember($_POST['mem-username']);
+	}
+}
+
+
 include_once 'footer.php';	
 ?>

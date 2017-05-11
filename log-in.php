@@ -33,8 +33,14 @@ if(isset($_POST['username'])&&isset($_POST['password'])){
 	
 	$admin_page = "admin-dashboard.php";
 	$home_page = "index.php";
+	$member_page = "member-dashboard.php";
 	if($row!=null){
-		header('Location: '.$admin_page);
+		if($row['privilege']==1){
+			header('Location: '.$admin_page);			
+		}else if($row['privilege']==2){
+			header('Location: '.$member_page);	
+		}
+
 	}else{
 		header("Location: ".$home_page);
 	}
