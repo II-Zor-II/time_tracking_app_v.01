@@ -27,11 +27,20 @@ class Member{
 	}
 	
 	private function add_member_details(){
+		echo "<br><br>".$this->user_id;
+		$query = "INSERT INTO ".$this->table_members."SET user_id=".$this->user_id.", team=?, position=?, settings=?";
 		
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$this->team);
+		$stmt->bindParam(2,);
+		$stmt->bindParam(3,);
 	}
 	
-	public function addMember($userinput_username){
+	public function addMember($userinput_username, $userinput_team, $userinput_position, $userinput_settings){
 		
+		$this->team= $userinput_team;
+		$this->position= $userinput_position;
+		$this->settings= $userinput_settings;
 		
 		$query = "INSERT INTO ".$this->table_users." SET username=?, password=?, privilege=2";
 		
@@ -40,11 +49,11 @@ class Member{
 		$stmt->bindParam(2,$this->random_password());
 		
 		if($stmt->execute()){
-			echo "hooray";
+			$this->user_id=$this->con->lastInsertId("id");
+			$this->add_member_details();
 		}else{
 			echo "failed";
 		}
-		
 	}
 	
 	
