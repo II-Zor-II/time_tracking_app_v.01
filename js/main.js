@@ -22,6 +22,9 @@ $(document).ready(function(){
 	$("#add-timeframe-btn").click(function(){
 		window.location.href="/tmq/add-timeframe.php";
 	});
+	$('.admin-mem-tfBtn').click(function(){
+		window.location.href="/tmq/member-timeframe.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
+	});
 	//
 	$("#Cancel").click(function(){
 		event.preventDefault();
@@ -51,13 +54,12 @@ $(document).ready(function(){
 				$('#mem-options').show();
 				var x = JSON.parse(result);
 				for(i=0;i<Object.keys(x).length;i++){
-					$("#tf-teamMembers").append('<option val="'+x[i].user_id+'">'+x[i].username+'</option>');
+					$("#tf-teamMembers").append('<option value="'+x[i].user_id+'">'+x[i].username+'</option>');
 				}
     		}
 		});	
 		
 	});
-	
 	
 	//add-timeframe functions with AJAX
 	$("#tf-task-categ").change(function(){
@@ -70,7 +72,7 @@ $(document).ready(function(){
 				//$("#tf-task-selection")
 				var x = JSON.parse(result);
 				for(i=0;i<Object.keys(x).length;i++){
-					$("#tf-task-selection").append('<option val="'+x[i].task_id+'">'+x[i].task_name+'</option>');
+					$("#tf-task-selection").append('<option value="'+x[i].task_id+'">'+x[i].task_name+'</option>');
 				}
     		}
 		});	

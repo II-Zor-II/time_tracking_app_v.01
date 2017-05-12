@@ -4,6 +4,12 @@ class Task{
 	
 	public $category_id;
 	public $task_name;
+	private $task_id;
+	private $user_id;
+	public $task_descp;
+	public $est_date;
+	public $est_time;
+	public $status;
 
 	public $table_task = 'tasks';
 	
@@ -59,6 +65,45 @@ class Task{
 			return $stmt;
 		}else{
 			echo "somethings wrong";
+		}
+		
+	}
+	
+	public function getTasksOfMember($member_id){
+		$query = "SELECT * FROM ".$this->table_task." WHERE user_id=?";
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$member_id);
+		if($stmt->execute()){
+			return $stmt;
+		}else{
+			echo "somethings wrong";
+		}
+	}
+
+	public function updateTask($task_id,$est_date,$est_time,$member_id){
+		
+		$query = "UPDATE ".$this->table_task." SET user_id=?, estimated_date=?, estimated_time=? WHERE task_id=?";
+		
+		$this->user_id = $member_id;
+		$this->est_date = $est_date;
+		$this->est_time = $est_time;
+		$this->task_id = $task_id;
+			
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$this->user_id);
+		$stmt->bindParam(2,$this->est_date );
+		$stmt->bindParam(3,$this->est_time);
+		$stmt->bindParam(4,$this->task_id);
+		if($stmt->execute()){
+			echo "success";
+			echo '<script language="javascript">';
+			echo 'alert("Timeframe Created")';
+			echo '</script>';
+		}else{
+			echo "failed";
+			echo '<script language="javascript">';
+			echo 'alert("Timeframe Failed")';
+			echo '</script>';
 		}
 		
 	}

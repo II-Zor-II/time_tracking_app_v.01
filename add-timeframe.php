@@ -4,13 +4,13 @@ include_once 'db/db.php';
 include_once 'objects/member.php';
 include_once 'objects/team.php';
 include_once 'objects/category.php';
+include_once 'objects/task.php';
 $database = new Database();
 $db = $database->getConnection();
 
-session_start();
 ?>
 
-	<h3>new TimeFrame</h3>
+	<h2>New TimeFrame</h2>
 	<hr>
 	<form class="form-horizontal" action="add-timeframe.php" method="post">
 		<div class="row">
@@ -32,7 +32,7 @@ session_start();
 			</div>		
 			<div class="col-xs-6">
 				<label for="task">Task</label>
-				<select name="task" id="tf-task-selection">
+				<select name="tf-task" id="tf-task-selection">
 				</select>
 				<!--to be php-->
 			</div>
@@ -46,12 +46,12 @@ session_start();
 		<div class="form-group">
 			<label class="control-label col-xs-2" for="est-time">Estimated Time: </label>
 			<div class="col-xs-8">
-			<input type="time" name="est-time">
+			<input type="time" step="1" name="est-time">
 			</div>
 		</div>
 		<div class="form-group col-xs-12">
 				<label for="task">Teams</label>
-				<select name="task" id="timeFrame-team-selector">
+				<select name="tf-teams" id="timeFrame-team-selector">
 					<?php 
 					$team = new Team($db);					
 					$stmt = $team->readTeams();
@@ -66,28 +66,42 @@ session_start();
 				</select>
 		</div>	
 		<div class="form-group col-xs-12" id="mem-options">
-			<label for="task">Members</label>
-			<select name="task" id="tf-teamMembers">
+			<label for="task">Member</label>
+			<select name="tf-task-member" id="tf-teamMembers">
 			</select>
 		</div>	
 		<div>
 			<button class="btn btn-danger" id="Cancel">Cancel</button>
-			<input type="submit" class="btn btn-primary" name="submit" />
+			<input type="submit" class="btn btn-primary" name="submit" value="Add" />
 		</div>
 	</form>
-	<?php 
+<?php 
 
 if(isset($_POST['submit'])){
-	$member = new Member($db);
-	if(!empty($_POST['mem-username'])&&!empty($_POST['position'])&&!empty($_POST['team'])&&!empty($_POST['settings'])&&!empty($_POST['mem-password'])){
-		session_unset(); 
-		$member->addMember($_POST['mem-username'],$_POST['team'],$_POST['position'],$_POST['settings'],$_POST['mem-password']);
+	if(
+		!empty($_POST['task-category'])&&
+		!empty($_POST['tf-task'])&&
+		!empty($_POST['est-date'])&&
+		!empty($_POST['est-time'])&&
+		!empty($_POST['tf-task-member'])){
+		$task = new Task($db);
+		//update task
+/*		echo $_POST['est-date'];
+		echo "<br>";
+		echo $_POST['est-time'];
+		echo "<br>";
+		echo $_POST['tf-task'];
+		echo "<br>";
+		echo $_POST['tf-task-member'];
+		echo "<br>";*/
+		$task->updateTask($_POST['tf-task'],$_POST['est-date'],$_POST['est-time'],$_POST['tf-task-member']);
+			
 	}else{
 		echo '<script language="javascript">';
 		echo 'alert("Please Fill out the Form")';
 		echo '</script>';
 	}
 }
-session_unset();
+
 include_once 'footer.php';	
 ?>
