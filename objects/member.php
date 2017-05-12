@@ -60,8 +60,19 @@ class Member{
 		}
 	}
 	
-	private function getUsernames(){ // will be used later to check for duplicate usernames
-		
+	private function getmemberByUID($user_id){ // will be used later to check for duplicate usernames
+		$query = "SELECT * FROM ".$this->table_members." WHERE user_id=?"; //LIMIT {$from_record_num},{$records_per_page}"
+		$this->username = $user_id;
+		$stmt->bindParam(1,$this->username);
+		$stmt = $this->con->prepare($query);
+		if($stmt->execute()){
+			return $stmt;
+		}else{
+			echo '<script language="javascript">';
+			echo 'alert("Failed")';
+			echo '</script>';
+		}
+
 	}
 	
 	public function readAllMembers(){

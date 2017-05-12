@@ -1,4 +1,3 @@
-
 <?php
 include_once 'header.php';
 include_once 'objects/task.php';
@@ -13,17 +12,7 @@ if(isset($_GET['user_id'])){
 }
 ?>
 	<div>
- 	<?php echo "<h2>{$_GET['username']}</h2>";?>
-  	<hr>
-  	<div class="col-xs-offset-1">
-		<input type="button" value="logout" class="logoutbtn btn btn-danger" id="logout-btn"/>
-	</div>
-	<hr>
-  	<div class="row col-xs-offset-1">
-		<button class="btn btn-primary" id="mem-myWorklog" value="<?php echo $_GET['user_id']?>"" name="<?php echo $_GET['username']?> ">My Worklog</button>
-		<button class="btn btn-warning" id="mem-myWorklog-ChR">Worklog Chart Report</button>
-		<button class="btn btn-success" id="mem-myTimeframe">My Timeframes</button>
-	</div>
+ 	<?php echo "<h2>{$_GET['username']} Worklog</h2>";?>
    	<table class="table table-bordered">
     <thead>
       <tr>
@@ -73,7 +62,10 @@ if(isset($_GET['user_id'])){
 	}
 ?>
     </tbody>
-    </table>	
+    </table>
+    <div>
+		<button class="btn btn-danger" id="Cancel">Close</button>
+	</div>		
     </div>
 
 

@@ -2,7 +2,7 @@
 
 include_once 'header.php';
 include_once '/db/db.php';
-
+//include_once 'objects/member.php';
 
 ///session_start();
 
@@ -30,10 +30,19 @@ if(isset($_POST['username'])&&isset($_POST['password'])){
 	echo $row['username'];
 	echo $row['password'];
 	echo $row['privilege'];
+	//--------------------------------------
+//	$table_members = "member_details";
+//	
+//	$members = new Members($db);
+//	
+//	$memStmt = $members->getmemberByUID($row['id']);
+//	$memData = $memStmt->fetch(PDO::FETCH_ASSOC);
+//	$memData['username']	
 	
+	//--------------------------------------
 	$admin_page = "admin-dashboard.php";
 	$home_page = "index.php";
-	$member_page = "member-dashboard.php";
+	$member_page = "member-dashboard.php?user_id=".$row['id']."&username=".$row['username'];
 	if($row!=null){
 		if($row['privilege']==1){
 			header('Location: '.$admin_page);			

@@ -25,12 +25,15 @@ $(document).ready(function(){
 	$('.admin-mem-tfBtn').click(function(){
 		window.location.href="/tmq/member-timeframe.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
 	});
+	$('.admin-mem-worklog').click(function(){
+		console.log("test");
+		window.location.href="/tmq/member-work-log.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
+	});
 	//
 	$("#Cancel").click(function(){
 		event.preventDefault();
 		window.location.href="/tmq/admin-dashboard.php";
 	});
-	
 	// Create a new password on page load
 	$("#memPwG-btn").click(function(){
 		event.preventDefault();

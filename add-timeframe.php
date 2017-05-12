@@ -85,15 +85,7 @@ if(isset($_POST['submit'])){
 		!empty($_POST['est-time'])&&
 		!empty($_POST['tf-task-member'])){
 		$task = new Task($db);
-		//update task
-/*		echo $_POST['est-date'];
-		echo "<br>";
-		echo $_POST['est-time'];
-		echo "<br>";
-		echo $_POST['tf-task'];
-		echo "<br>";
-		echo $_POST['tf-task-member'];
-		echo "<br>";*/
+
 		$task->updateTask($_POST['tf-task'],$_POST['est-date'],$_POST['est-time'],$_POST['tf-task-member']);
 			
 	}else{
