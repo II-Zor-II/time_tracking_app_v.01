@@ -40,9 +40,10 @@ if(isset($_POST['username'])&&isset($_POST['password'])){
 		}else if($row['privilege']==2){
 			header('Location: '.$member_page);	
 		}
-
 	}else{
-		header("Location: ".$home_page);
+		echo '<script language="javascript">';
+		echo 'alert("Incorrect Credentials");window.location.href="/tmq/index.php";; ';
+		echo '</script>';
 	}
 }else
 	echo "no input";

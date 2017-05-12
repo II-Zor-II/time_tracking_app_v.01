@@ -5,9 +5,11 @@ include_once 'header.php';
 
 
 
-
 	<div>
-	<table class="table table-bordered">
+	<div class="col-xs-offset-1">
+		<input type="button" value="logout" class="logoutbtn btn btn-danger" id="logout-btn"/>
+	</div>
+   	<table class="table table-bordered">
     <thead>
       <tr>
         <th>task name</th>

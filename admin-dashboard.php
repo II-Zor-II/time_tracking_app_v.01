@@ -1,8 +1,10 @@
  <?php 
 
 include_once 'header.php';
+include_once 'objects/member.php';
 
-
+$database = new Database();
+$db = $database->getConnection();
 ?>
 
 <div class="container-fluid">
@@ -42,6 +44,21 @@ include_once 'header.php';
     </thead>
     <tbody>
 		<tr>
+		<?php
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		?>
+<!--
 			<td></td>
 			<td></td>
 			<td></td>
@@ -50,6 +67,7 @@ include_once 'header.php';
 				<button class="btn btn-primary">Working</button>
 				<button class="btn btn-warning">Add Task</button>
 			</td>
+-->
 		</tr>
     </tbody>
   </table>		

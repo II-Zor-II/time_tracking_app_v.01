@@ -68,6 +68,16 @@ class Member{
 	private function getUsernames(){ // will be used later to check for duplicate usernames
 		
 	}
+	
+	public function readAllMembes(){
+		    $query = "SELECT id, title, description, date_released, img_src,vid_src FROM ".$this->table_name." ORDER BY team DESC 
+            LIMIT {$from_record_num},{$records_per_page}"; //Sorted from newest to oldest
+            
+            $stmt = $this->con->prepare($query);
+            $stmt->execute();
+        
+            return $stmt;
+	}
 
 }
 ?>
