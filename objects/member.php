@@ -16,47 +16,58 @@ class Member{
 		$this->con = $db;
 	}
 	
-	public function testFunc(){
-		echo "Test Class function";
-	}
-	
-	private function random_password( $length = 6 ) {
-		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		$password = substr( str_shuffle( $chars ), 0, $length );
-		return $password;
-	}
+//	private function random_password( $length = 6 ) {
+//		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+//		$password = substr( str_shuffle( $chars ), 0, $length );
+//		$this->mem_pass = $password;
+//		return $password;
+//	}
 	
 	private function add_member_details(){
-		echo "<br><br>".$this->user_id;
-		$query = "INSERT INTO ".$this->table_members."SET user_id=".$this->user_id.", team=?, position=?, settings=?";
+
+		$query = "INSERT INTO ".$this->table_members." SET user_id=".$this->user_id.", team=?, position=?, settings=?";
 		
 		$stmt = $this->con->prepare($query);
 		$stmt->bindParam(1,$this->team);
-		$stmt->bindParam(2,);
-		$stmt->bindParam(3,);
+		$stmt->bindParam(2,$this->position);
+		$stmt->bindParam(3,$this->settings);
+		if($stmt->execute()){
+			echo '<script language="javascript">';
+			echo 'alert("Member Added")';
+			echo '</script>';
+		}else{
+			echo '<script language="javascript">';
+			echo 'alert("Adding Member Failed")';
+			echo '</script>';
+		}
 	}
 	
-	public function addMember($userinput_username, $userinput_team, $userinput_position, $userinput_settings){
+	public function addMember($userinput_username, $userinput_team, $userinput_position, $userinput_settings,$mempass_input){
 		
 		$this->team= $userinput_team;
 		$this->position= $userinput_position;
 		$this->settings= $userinput_settings;
+		$this->mem_pass = $mempass_input;
 		
 		$query = "INSERT INTO ".$this->table_users." SET username=?, password=?, privilege=2";
 		
 		$stmt = $this->con->prepare($query);
 		$stmt->bindParam(1,$userinput_username);
-		$stmt->bindParam(2,$this->random_password());
+		$stmt->bindParam(2,$this->mem_pass);
 		
 		if($stmt->execute()){
 			$this->user_id=$this->con->lastInsertId("id");
 			$this->add_member_details();
 		}else{
-			echo "failed";
+			echo '<script language="javascript">';
+			echo 'alert("Adding Member Failed")';
+			echo '</script>';
 		}
 	}
 	
-	
-	
+	private function getUsernames(){ // will be used later to check for duplicate usernames
+		
+	}
+
 }
 ?>

@@ -1,4 +1,4 @@
-<?php 
+ <?php 
 
 include_once 'header.php';
 
@@ -7,7 +7,7 @@ include_once 'header.php';
 
 <div class="container-fluid">
 	<div class="row">
-		<a href="">Logout</a>
+		<input type="button" value="logout" class="logoutbtn" id="logout-btn"/>
 	</div>
 	<div class="row">
 		<button class="btn btn-primary" id="add-member-btn">Add Member</button>
@@ -31,7 +31,7 @@ include_once 'header.php';
 		</div>
 	</div>
 	<div>
-		  <table class="table table-bordered">
+	<table class="table table-bordered">
     <thead>
       <tr>
         <th>Team</th>
@@ -52,10 +52,8 @@ include_once 'header.php';
 			</td>
 		</tr>
     </tbody>
-  </table>
-		
-		
-	</div>
+  </table>		
+  </div>
 </div>
 
 

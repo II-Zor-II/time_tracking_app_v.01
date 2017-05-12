@@ -2,6 +2,10 @@
 
 
 $(document).ready(function(){
+	$('#logout-btn').click(function(){
+		window.location.href="/tmq/index.php";
+	});
+	
 	$("#add-member-btn").click(function(){
 		window.location.href="/tmq/add-member.php";
 	});
@@ -19,8 +23,35 @@ $(document).ready(function(){
 		event.preventDefault();
 		window.location.href="/tmq/admin-dashboard.php";
 	});
+	
+	// Create a new password on page load
+	$("#memPwG-btn").click(function(){
+		event.preventDefault();
+		var generatedPw = randString();
+		$("#password-input").attr("placeholder",generatedPw);
+		$("#password-input").val(generatedPw);
+	});
+	
+	$("#password-input").ready(function(){
+		var generatedPw = randString();
+		$("#password-input").attr("placeholder",generatedPw);
+		$("#password-input").val(generatedPw);
+	});
+	
+	
 });
 
+
+function randString(){
+
+  var possible = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var dataSet = possible.split(','); 
+  var text = '';
+  for(var i=0; i < 6; i++) {
+	text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+}
 
 
 /*
