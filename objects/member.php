@@ -70,6 +70,17 @@ class Member{
 		$stmt->execute();
 		return $stmt;
 	}
+	
+	public function getMembersOfTeam($team_name){
+		$query = "SELECT user_id, username FROM ".$this->table_members." WHERE team=?";
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$team_name);
+		if($stmt->execute()){
+			return $stmt;
+		}else{
+			echo "somethings wrong";
+		}
+	}
 
 }
 ?>

@@ -43,24 +43,37 @@ $(document).ready(function(){
 	});
 	
 	//
-	$("#timeFrame-selector").change(function(){
-		console.log("something changed");
-		$('#mem-options').show();
+	$("#timeFrame-team-selector").change(function(){
+		$('#tf-teamMembers').find('option').remove();
+		$.ajax({
+			url: "team-member-list.php?team_name="+event.target.value, 	
+			success: function(result){
+				$('#mem-options').show();
+				var x = JSON.parse(result);
+				for(i=0;i<Object.keys(x).length;i++){
+					$("#tf-teamMembers").append('<option val="'+x[i].user_id+'">'+x[i].username+'</option>');
+				}
+    		}
+		});	
+		
 	});
 	
 	
 	//add-timeframe functions with AJAX
 	$("#tf-task-categ").change(function(){
+		$('#tf-task-selection').find('option').remove();
 		console.log("AJAX response");
 		$.ajax({
 			url: "category_task_list.php?category_id="+event.target.value, 	
 			success: function(result){
         		console.log(result);
 				//$("#tf-task-selection")
-				
+				var x = JSON.parse(result);
+				for(i=0;i<Object.keys(x).length;i++){
+					$("#tf-task-selection").append('<option val="'+x[i].task_id+'">'+x[i].task_name+'</option>');
+				}
     		}
-		});
-		
+		});	
 	});
 });
 

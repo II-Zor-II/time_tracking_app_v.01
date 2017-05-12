@@ -38,20 +38,20 @@ session_start();
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-xs-2" for="position">Estimated Date: </label>
+			<label class="control-label col-xs-2" for="est-date">Estimated Date: </label>
 			<div class="col-xs-8">
 			<input type="date" name="est-date">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-xs-2" for="mem-username">Estimated Time: </label>
+			<label class="control-label col-xs-2" for="est-time">Estimated Time: </label>
 			<div class="col-xs-8">
-			<input type="text" name="est-time">
+			<input type="time" name="est-time">
 			</div>
 		</div>
 		<div class="form-group col-xs-12">
 				<label for="task">Teams</label>
-				<select name="task" id="timeFrame-selector">
+				<select name="task" id="timeFrame-team-selector">
 					<?php 
 					$team = new Team($db);					
 					$stmt = $team->readTeams();
@@ -67,11 +67,7 @@ session_start();
 		</div>	
 		<div class="form-group col-xs-12" id="mem-options">
 			<label for="task">Members</label>
-			<select name="task">
-				<option>mem 1</option>
-				<option>mem 1</option>
-				<option>mem 1</option>
-				<option>mem 1</option>
+			<select name="task" id="tf-teamMembers">
 			</select>
 		</div>	
 		<div>
