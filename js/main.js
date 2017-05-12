@@ -1,11 +1,12 @@
 
-
-
 $(document).ready(function(){
+	//hides certain selection boxes
+	$('#mem-options').hide();
+	//--------------------------
 	$('#logout-btn').click(function(){
 		window.location.href="/tmq/index.php";
 	});
-	
+	//
 	$("#add-member-btn").click(function(){
 		window.location.href="/tmq/add-member.php";
 	});
@@ -13,12 +14,15 @@ $(document).ready(function(){
 		window.location.href="/tmq/add-team.php";
 	});
 	$("#add-category-btn").click(function(){
-		window.location.href="/tmq/add-team.php";
+		window.location.href="/tmq/add-category.php";
 	});
 	$("#add-task-btn").click(function(){
-		window.location.href="/tmq/add-team.php";
+		window.location.href="/tmq/add-task.php";
 	});
-	
+	$("#add-timeframe-btn").click(function(){
+		window.location.href="/tmq/add-timeframe.php";
+	});
+	//
 	$("#Cancel").click(function(){
 		event.preventDefault();
 		window.location.href="/tmq/admin-dashboard.php";
@@ -38,7 +42,26 @@ $(document).ready(function(){
 		$("#password-input").val(generatedPw);
 	});
 	
+	//
+	$("#timeFrame-selector").change(function(){
+		console.log("something changed");
+		$('#mem-options').show();
+	});
 	
+	
+	//add-timeframe functions with AJAX
+	$("#tf-task-categ").change(function(){
+		console.log("AJAX response");
+		$.ajax({
+			url: "category_task_list.php?category_id="+event.target.value, 	
+			success: function(result){
+        		console.log(result);
+				//$("#tf-task-selection")
+				
+    		}
+		});
+		
+	});
 });
 
 

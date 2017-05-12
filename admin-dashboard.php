@@ -2,7 +2,7 @@
 
 include_once 'header.php';
 include_once 'objects/member.php';
-
+include_once 'db/db.php';
 $database = new Database();
 $db = $database->getConnection();
 ?>
@@ -43,21 +43,25 @@ $db = $database->getConnection();
       </tr>
     </thead>
     <tbody>
-		<tr>
-		<?php
 		
+<?php
+	$members = new Member($db);
+	$stmt = $members->readAllMembers(); //$from_record_num,$records_per_page
+	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+		extract($row);
+		echo "<tr>";
+		echo "<td>{$team}</td>";
+		echo "<td>{$username}</td>";
+		echo "<td>{$position}</td>";
+		echo "<td>			
+				<button class='btn btn-success'>Timeframe</button>
+				<button class='btn btn-primary'>Working</button>
+				<button class='btn btn-warning'>Add Task</button>
+			  </td>";
+		echo "</tr>";
+	}
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		?>
+?>
 <!--
 			<td></td>
 			<td></td>
@@ -68,7 +72,7 @@ $db = $database->getConnection();
 				<button class="btn btn-warning">Add Task</button>
 			</td>
 -->
-		</tr>
+		
     </tbody>
   </table>		
   </div>

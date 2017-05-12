@@ -5,10 +5,17 @@ include_once 'objects/member.php';
 include_once 'objects/team.php';
 $database = new Database();
 $db = $database->getConnection();
+session_start();
+if (isset($_POST['mem-username'])) { 
+ $_SESSION['mem-username'] = $_POST['mem-username'];
+ } 
+if (isset($_POST['position'])) { 
+ $_SESSION['position'] = $_POST['position'];
+ } 
 ?>
 	<h3>Add Member</h3>
 	<hr>
-	<form class="form-horizontal" action="" method="post">
+	<form class="form-horizontal" action="add-member.php" method="post">
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="team">Team</label>
 			<div class="col-sm-10">
@@ -31,7 +38,7 @@ $db = $database->getConnection();
 		<div class="form-group">
 			<label class="control-label col-xs-2" for="position">Position:</label>
 			<div class="col-xs-8">
-				<input type="text" class="form-control" id="position" placeholder="ex. Web Designer" name="position"> </div>
+				<input type="text" class="form-control" id="position" placeholder="ex. Web Designer" name="position" value="<?php if(!empty($_SESSION['position'])){echo $_SESSION['mem-username']; }?>"> </div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-xs-2" for="settings">Settings:</label>
@@ -47,7 +54,8 @@ $db = $database->getConnection();
 		<div class="form-group">
 			<label class="control-label col-xs-2" for="mem-username">Username: </label>
 			<div class="col-xs-8">
-				<input type="text" class="form-control" id="mem-username" placeholder="username" name="mem-username"> </div>
+				<input type="text" class="form-control" id="mem-username" placeholder="username" name="mem-username"
+				value="<?php if(!empty($_SESSION['mem-username'])){echo $_SESSION['mem-username']; }?>"> </div>
 		</div>
 		<div class="form-group col-xs-12">
 			<label class="control-label col-xs-2">Password: </label>
@@ -63,9 +71,10 @@ $db = $database->getConnection();
 	<?php 
 ///public function addMember($userinput_username, $userinput_team, $userinput_position, $userinput_settings){
 
-if(isset($_POST['submit'])){	
+if(isset($_POST['submit'])){
 	$member = new Member($db);
 	if(!empty($_POST['mem-username'])&&!empty($_POST['position'])&&!empty($_POST['team'])&&!empty($_POST['settings'])&&!empty($_POST['mem-password'])){
+		session_unset(); 
 		$member->addMember($_POST['mem-username'],$_POST['team'],$_POST['position'],$_POST['settings'],$_POST['mem-password']);
 	}else{
 		echo '<script language="javascript">';
@@ -73,7 +82,6 @@ if(isset($_POST['submit'])){
 		echo '</script>';
 	}
 }
-
 
 include_once 'footer.php';	
 ?>

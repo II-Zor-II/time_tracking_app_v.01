@@ -7,6 +7,14 @@ if(!empty($_POST)){
 	$database = new Database();
 	$db = $database->getConnection();
 }
+session_start();
+
+if (isset($_POST['team-name'])) { 
+ $_SESSION['team-name'] = $_POST['team-name'];
+ } 
+if (isset($_POST['team-desc'])) { 
+ $_SESSION['team-desc'] = $_POST['team-desc'];
+ } 
 ?>
 
 <form action='' method='post'>
@@ -14,11 +22,13 @@ if(!empty($_POST)){
 
         <tr>
             <td>Name</td>
-            <td><input type='text' name='team-name' class='form-control' /></td>
+            <td><input type='text' name='team-name' class='form-control' value="<?php if(!empty($_SESSION['team-name'])){echo $_SESSION['team-name']; }?>"/></td>
         </tr> 
         <tr>
             <td>Description</td>
-            <td><textarea name='team-desc' class='form-control'></textarea></td>
+            <td><textarea name='team-desc' class='form-control' value="
+            	
+            <?php if(!empty($_SESSION['team-desc'])){echo $_SESSION['team-desc']; }?>"></textarea></td>
         </tr>
         <tr>
             <td></td>

@@ -3,7 +3,6 @@ include_once 'header.php';
 
 ?>
 
-
 <button class="btn">Register</button>
 <form class="" method="post" action="log-in.php">
 	<div class="form-group">
@@ -17,8 +16,7 @@ include_once 'header.php';
 	</div>
 	
 </form>
-<?php 
-	
+<?php 	
 	
 include_once 'footer.php';	
 ?>

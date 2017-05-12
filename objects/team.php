@@ -1,7 +1,6 @@
 <?php
 class Team{
 	
-	
 	public $team_id;
 	public $teamName;
 	public $teamDesc;
@@ -24,14 +23,14 @@ class Team{
 		return $stmt;
 	}
 	public function countAll(){
-	$query = "SELECT team_id FROM ".$this->table_teams."";
+		$query = "SELECT team_id FROM ".$this->table_teams."";
 
-	$stmt = $this->con->prepare($query);
-	$stmt->execute();
+		$stmt = $this->con->prepare($query);
+		$stmt->execute();
 
-	$num = $stmt->rowCount();
-	echo $num;
-	return $num;
+		$num = $stmt->rowCount();
+		echo $num;
+		return $num;
 	}
      
 	public function createTeam($teamNameInput, $teamDescInput){

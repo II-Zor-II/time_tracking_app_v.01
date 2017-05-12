@@ -1,6 +1,7 @@
 <?php
 class Member{
 	public $user_id;
+	public $username;
 	public $team;
 	public $position;
 	public $settings;
@@ -16,21 +17,15 @@ class Member{
 		$this->con = $db;
 	}
 	
-//	private function random_password( $length = 6 ) {
-//		$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-//		$password = substr( str_shuffle( $chars ), 0, $length );
-//		$this->mem_pass = $password;
-//		return $password;
-//	}
-	
 	private function add_member_details(){
 
-		$query = "INSERT INTO ".$this->table_members." SET user_id=".$this->user_id.", team=?, position=?, settings=?";
+		$query = "INSERT INTO ".$this->table_members." SET user_id=".$this->user_id.", username=?, team=?, position=?, settings=?";
 		
 		$stmt = $this->con->prepare($query);
-		$stmt->bindParam(1,$this->team);
-		$stmt->bindParam(2,$this->position);
-		$stmt->bindParam(3,$this->settings);
+		$stmt->bindParam(1,$this->username);
+		$stmt->bindParam(2,$this->team);
+		$stmt->bindParam(3,$this->position);
+		$stmt->bindParam(4,$this->settings);
 		if($stmt->execute()){
 			echo '<script language="javascript">';
 			echo 'alert("Member Added")';
@@ -48,11 +43,11 @@ class Member{
 		$this->position= $userinput_position;
 		$this->settings= $userinput_settings;
 		$this->mem_pass = $mempass_input;
-		
+		$this->username = $userinput_username;
 		$query = "INSERT INTO ".$this->table_users." SET username=?, password=?, privilege=2";
 		
 		$stmt = $this->con->prepare($query);
-		$stmt->bindParam(1,$userinput_username);
+		$stmt->bindParam(1,$this->username);
 		$stmt->bindParam(2,$this->mem_pass);
 		
 		if($stmt->execute()){
@@ -69,14 +64,11 @@ class Member{
 		
 	}
 	
-	public function readAllMembes(){
-		    $query = "SELECT id, title, description, date_released, img_src,vid_src FROM ".$this->table_name." ORDER BY team DESC 
-            LIMIT {$from_record_num},{$records_per_page}"; //Sorted from newest to oldest
-            
-            $stmt = $this->con->prepare($query);
-            $stmt->execute();
-        
-            return $stmt;
+	public function readAllMembers(){
+		$query = "SELECT * FROM ".$this->table_members." ORDER BY team DESC"; //LIMIT {$from_record_num},{$records_per_page}"
+		$stmt = $this->con->prepare($query);
+		$stmt->execute();
+		return $stmt;
 	}
 
 }
