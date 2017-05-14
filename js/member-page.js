@@ -6,7 +6,8 @@
 $(document).ready(function(){
 
 	let startedTimeLog = false;
-
+	let breaksCtr = 0;
+	
 	let Interval;
 	let sec = 0;
 	let min = 0;
@@ -15,6 +16,8 @@ $(document).ready(function(){
 	let d = 0; //day
 	//
 	let pause = 2;
+	let date;
+	let strtTime;
 	$("#mem-myWorklog").click(function(){
 		window.location.href="/tmq/member-personalWorkLog.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
 	});
@@ -37,6 +40,14 @@ $(document).ready(function(){
 		});
 		event.preventDefault();
 	});
+	$("#save-worklog").hover(function(){
+		console.log("hovered");
+		setDate();
+		$("#time-ended").attr("value",date+" "+strtTime);
+		
+	});
+	
+	
 	
 	$("#memWorkLog-Cancel").click(function(){
 		event.preventDefault();
@@ -46,7 +57,80 @@ $(document).ready(function(){
 	//timer buttons
 	$("#start-pause-btn").click(function(){
 		event.preventDefault();
-		let date;
+		setDate();
+		// pass start-date
+		if(!startedTimeLog){
+			$.ajax({
+				url: "start-and-end-api.php?task_id="+$("#mem-prsnlWorkLog-selection").val()+"&start_date="+date+"&start_time="+strtTime,		
+				success: function(){
+					console.log("success");	
+					startedTimeLog = true;
+				}
+			});	
+		}
+		//
+		if(pause%2!=0){
+			$.when($(event.target).html("Start")).then(function(){
+				clearInterval(Interval);
+				$("#tot-breaks").attr("value",breaksCtr);
+			});	
+		}else{
+			$.when($(event.target).html("Pause")).then(function(){
+				Interval = setInterval(startTimer,1000);
+				breaksCtr++;
+			});	
+		}
+		pause++;
+	});
+	$("#reset-btn").click(function(){
+		event.preventDefault();
+		resetTimer();
+		breaksCtr = 0;
+		$("#tot-breaks").attr("value",breaksCtr);
+	});
+	//AJAX
+	$("#mem-prsnlWorkLog-selection").change(function(){
+		console.log("AJAX response");
+		if($("#LogIdentifier").val()==1){
+			$.ajax({
+			url: "task-timeframe.php?task_id="+event.target.value, 	
+			success: function(result){
+				var x = JSON.parse(result);
+				$("#mem-task-timeframe").attr("value",x.estimated_date+" - "+x.estimated_time);			
+    		}
+		});		
+		}
+	});
+	
+	//TIMER functions
+	function startTimer(){
+	 sec++;
+	 if(sec>60){
+		 min++;
+		 sec = 0;
+	 }	
+	 if(min>60){
+		 hr++;
+		 min = 0
+	 }
+	 if(hr>24){
+		 d++;
+		 hr = 0;
+	 }
+	 $("#elapsed-timer").attr("value",
+			hr + ":" + min + ":" + sec				  
+								 );
+	};
+	function resetTimer(){
+		let sec = 0;
+		let min = 0;
+		let hr  = 0;
+		clearInterval(Interval);
+		$("#elapsed-timer").attr("value","0 : 0 : 0");
+		startedTimeLog = false;
+	}
+	function setDate(){
+		
 		let dateObj = new Date();
 		let y = dateObj.getFullYear();
 		let m = dateObj.getMonth()+1;
@@ -55,7 +139,7 @@ $(document).ready(function(){
 		let dF;
 		
 		
-		let strtTime;
+
 		let stSec = dateObj.getSeconds();
 		let stMin = dateObj.getMinutes();
 		let stHr = dateObj.getHours();
@@ -91,73 +175,7 @@ $(document).ready(function(){
 		}
 		date = y+"-"+mF+"-"+dF;
 		strtTime = stHrF+":"+stMinF+":"+stSecF;
-		console.log(date + " " + strtTime);
-		console.log($("#mem-prsnlWorkLog-selection").val());
-		// pass start-date
-		if(!startedTimeLog){
-			$.ajax({
-				url: "start-and-end-api.php?task_id="+$("#mem-prsnlWorkLog-selection").val()+"&start_date="+date+"&start_time="+strtTime,		
-				success: function(){
-					console.log("success");	
-					startedTimeLog = true;
-				}
-			});	
-		}
-		//
-		if(pause%2!=0){
-			$.when($(event.target).html("Start")).then(clearInterval(Interval));	
-		}else{
-			$.when($(event.target).html("Pause")).then(function(){
-				Interval = setInterval(startTimer,1000);
-			});	
-		}
-		pause++;
-	});
-	$("#reset-btn").click(function(){
-		event.preventDefault();
-		resetTimer();
-	});
-	//AJAX
-	$("#mem-prsnlWorkLog-selection").change(function(){
-		console.log("AJAX response");
-		if($("#LogIdentifier").val()==1){
-			$.ajax({
-			url: "task-timeframe.php?task_id="+event.target.value, 	
-			success: function(result){
-				var x = JSON.parse(result);
-				$("#mem-task-timeframe").attr("value",x.estimated_date+" - "+x.estimated_time);			
-    		}
-		});		
-		}
-	});
-	
-	//TIMER functions
-	function startTimer(){
-	 sec++;
-	 if(sec>60){
-		 min++;
-		 sec = 0;
-	 }	
-	 if(min>60){
-		 hr++;
-		 min = 0
-	 }
-	 if(hr>24){
-		 d++;
-		 hr = 0;
-	 }
-	 $("#elapsed-timer").attr("value",
-			hr + " : " + min + " : " + sec				  
-								 );
-	};
-	function resetTimer(){
-		let sec = 0;
-		let min = 0;
-		let hr  = 0;
-		clearInterval(Interval);
-		$("#elapsed-timer").attr("value","0 : 0 : 0");
-		startedTimeLog = false;
 	}
-	
+	//
 	
 });

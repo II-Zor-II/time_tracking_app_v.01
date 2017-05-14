@@ -79,6 +79,17 @@ class Task{
 			echo "somethings wrong";
 		}
 	}
+	
+	public function getTaskUnfinished($member_id){
+		$query = "SELECT * FROM ".$this->table_task." WHERE user_id=? AND status<>2";
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$member_id);
+		if($stmt->execute()){
+			return $stmt;
+		}else{
+			echo "somethings wrong";
+		}		
+	}
 
 	public function updateTask($task_id,$est_date,$est_time,$member_id){
 		
@@ -120,7 +131,20 @@ class Task{
 	}
 	
 	public function saveTaskTimer($task_id, $time_spent, $breaks, $time_ended){
-	
+		//set status to timer
+		
+		$query = "UPDATE ".$this->table_task." SET end_date=?, time_spent=?, breaks=?, status=2, type='timer' WHERE task_id=?";
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$time_ended);
+		$stmt->bindParam(2,$time_spent);
+		$stmt->bindParam(3,$breaks);
+		$stmt->bindParam(4,$task_id);
+
+		if($stmt->execute()){
+			echo "success";
+		}else{
+			echo "failed";
+		}	
 	}
 	
 	public function startTimerTask($task_id, $StartTimeInput){

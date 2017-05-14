@@ -19,7 +19,7 @@ $task = new Task($db);
 			<select name="task_id" id="mem-prsnlWorkLog-selection">
 			<option value="" disabled selected>Select a task</option> <!-- prompt option -->
 			<?php
-			$stmt = $task->getTasksOfMember($_GET['user_id']); //$from_record_num,$records_per_page
+			$stmt = $task->getTaskUnfinished($_GET['user_id']); //$from_record_num,$records_per_page
 			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 				extract($row);
 				echo "<option value='{$task_id}'>{$task_name}</option>";
@@ -78,13 +78,15 @@ $task = new Task($db);
 
 			</table>
 			<input style="display:none" value="1" id="LogIdentifier" name="logIdentifier"/>
+			<input style="display:none" value="0" id="tot-breaks" name="tot-breaks"/>
+			<input style="display:none" value="" id="time-ended" name="time-ended"/>
 			<input style="display:none" value="<?php echo $_GET['user_id']; ?>" name="user_id"/>
 			<input style="display:none" value="<?php echo $_GET['username']; ?>" name="username"/>
 	</div>
 		<hr>
 		<div>
 			<button class="btn btn-danger" id="memWorkLog-Cancel" uid="<?php echo $_GET['user_id']?>" un="<?php echo $_GET['username']?>">Cancel</button>
-			<input type="submit" class="btn btn-primary" name="submit" value="Save" />
+			<input type="submit" class="btn btn-primary" name="submit" value="Save" id="save-worklog"/>
 		</div>
  </form>
 </div>
@@ -101,17 +103,18 @@ $task = new Task($db);
 		!empty($_POST['task-description'])||
 		(
 		!empty($_POST['task_id']))&&
-		!empty($_POST['mem-task-clockIn'])&&
+		!empty($_POST['time-ended'])&&
 		!empty($_POST['wl-elapsed-time'])){
 		//Do something here --> $_POST['LogIdentifier];
 		if($_POST['logIdentifier']=="1"){
-			//saveTaskTimer($task_id, $time_spent, $breaks, $time_ended)
-			$stmt = $task->saveTaskTimer($_POST['task_id'],$_POST['mem-task-clockIn'],$_POST['wl-elapsed-time']);
-			
+
 			$member_page = "member-dashboard.php?user_id=".$_POST['user_id']."&username=".$_POST['username']."&TIME_SUBMITTED_SUCCESS";
 			header('Location: '.$member_page);
 		}else if($_POST['logIdentifier']=="2"){
-			$member_page = "member-dashboard.php?user_id=".$_POST['user_id']."&username=".$_POST['username']."&TIMER_SUBMITTED_SUCCESS";
+			//saveTaskTimer($task_id, $time_spent, $breaks, $time_ended)
+			$stmt = $task->saveTaskTimer($_POST['task_id'],$_POST['wl-elapsed-time'],$_POST['tot-breaks'],$_POST['time-ended']);
+
+		$member_page = "member-dashboard.php?user_id=".$_POST['user_id']."&username=".$_POST['username']."&TIMER_SUBMITTED_SUCCESS";
 			header('Location: '.$member_page);
 		}
 	}else{
