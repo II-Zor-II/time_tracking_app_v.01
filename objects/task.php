@@ -10,7 +10,9 @@ class Task{
 	public $est_date;
 	public $est_time;
 	public $status;
-
+	public $start_date;
+	public $end_date;
+	public $time_spent;
 	public $table_task = 'tasks';
 	
 		public function __construct($db){
@@ -130,9 +132,32 @@ class Task{
 		}
 	}
 	
+	public function saveTaskTime($task_id, $clock_in, $task_endTime, $cloud_file_url, $collab_with, $task_descrption){
+		//$stmt = $task->saveTaskTime($_POST['task_id'],$_POST['mem-task-clockIn'],$_POST['time-ended'],$_POST['cloudFile-url'],$_POST['task-collab-wth'],$_POST['task-description']);
+		$query = "UPDATE ".$this->table_task." SET Location=?, Collab=?, task_desc=?, start_date=?, end_date=?, time_spent=?, status=2, type='clock' WHERE task_id=?";
+		
+		$this->task_id = $task_id;
+		$this->start_date = date("Y-m-d")." ".$clock_in;
+		$this->end_date = date("Y-m-d")." ".$task_endTime;
+		$this->calculateTimeSpentClock();
+		
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$cloud_file_url);
+		$stmt->bindParam(2,$collab_with);
+		$stmt->bindParam(3,$task_descrption);
+		$stmt->bindParam(4,$this->start_date);
+		$stmt->bindParam(5,$this->end_date);
+		$stmt->bindParam(6,$this->time_spent);	
+		$stmt->bindParam(7,$this->task_id);	
+		if($stmt->execute()){
+			echo "success";
+		}else{
+			echo "failed";
+		}		
+	}
+	
 	public function saveTaskTimer($task_id, $time_spent, $breaks, $time_ended){
 		//set status to timer
-		
 		$query = "UPDATE ".$this->table_task." SET end_date=?, time_spent=?, breaks=?, status=2, type='timer' WHERE task_id=?";
 		$stmt = $this->con->prepare($query);
 		$stmt->bindParam(1,$time_ended);
@@ -177,9 +202,15 @@ class Task{
 		}
 	}
 	
-	public function resetStartTime(){
+	private function calculateTimeSpentClock(){
 		
+		$date1 = date_create($this->start_date);
+		$date2 = date_create($this->end_date);
+		$diff= date_diff($date1,$date2);
+		$this->time_spent = $diff->format("%H:%I:%S");
 	}
+	
+	
 }
 
 ?>

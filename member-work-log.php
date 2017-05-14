@@ -57,7 +57,7 @@ if(isset($_GET['user_id'])){
 			echo "<td>{$time_spent}</td>"; //total
 			echo "<td>{$type}</td>"; //type - timer - clock
 			echo "<td>{$statusString}</td>";
-			echo "<td></td>";//break log
+			echo "<td>{$breaks}</td>";//break log
 		echo "</tr>";
 	}
 ?>

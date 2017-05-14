@@ -107,7 +107,10 @@ $task = new Task($db);
 		!empty($_POST['wl-elapsed-time'])){
 		//Do something here --> $_POST['LogIdentifier];
 		if($_POST['logIdentifier']=="1"){
-
+		//saveTaskTime($task_id, $clock_in, $task_endTime, $cloud_file_url, $collab_with, $task_descrption)
+			
+		$stmt = $task->saveTaskTime($_POST['task_id'],$_POST['mem-task-clockIn'],$_POST['task-endTime'],$_POST['cloudFile-url'],$_POST['task-collab-wth'],$_POST['task-description']);	
+			
 		$member_page = "member-dashboard.php?user_id=".$_POST['user_id']."&username=".$_POST['username']."&TIME_SUBMITTED_SUCCESS";
 			header('Location: '.$member_page);
 		}else if($_POST['logIdentifier']=="2"){

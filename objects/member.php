@@ -72,7 +72,6 @@ class Member{
 			echo 'alert("Failed")';
 			echo '</script>';
 		}
-
 	}
 	
 	public function readAllMembers(){
