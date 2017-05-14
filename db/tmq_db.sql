@@ -70,18 +70,20 @@ CREATE TABLE `tasks` (
   `estimated_date` date NOT NULL,
   `estimated_time` text NOT NULL,
   `type` varchar(20) NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL,
+  `breaks` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`task_id`, `user_id`, `category_id`, `task_name`, `Location`, `Collab`, `task_desc`, `start_date`, `end_date`, `time_spent`, `estimated_date`, `estimated_time`, `type`, `status`) VALUES
-(2, 26, 4, 'new HR task', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '00:00:00', '2017-05-24', '17:00', 'timer', 0),
-(5, 25, 2, 'program', '', '', '', '2017-05-14 19:01:10', '0000-00-00 00:00:00', '00:00:00', '2017-05-17', '01:00:01', 'clock', 0),
-(6, 25, 3, 'Write ebook', '', '', 'clock', '2017-05-14 19:07:20', '0000-00-00 00:00:00', '00:00:00', '2017-05-25', '01:00:02', 'timer', 2),
-(7, 29, 3, 'Write an E-book about flowers', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '00:00:00', '2017-11-08', '02:00:59', '', 0);
+INSERT INTO `tasks` (`task_id`, `user_id`, `category_id`, `task_name`, `Location`, `Collab`, `task_desc`, `start_date`, `end_date`, `time_spent`, `estimated_date`, `estimated_time`, `type`, `status`, `breaks`) VALUES
+(2, 26, 4, 'new HR task', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '00:00:00', '2017-05-24', '17:00', 'timer', 0, 0),
+(5, 25, 2, 'program', 'https://docs.google.com/document/d/1zIAvN96Y6QUYnrH_YGnoo6CpWmG5c322gGEzYlmbTMA/edit', 'Myself', 'Lorem ipsum dolor sit amet, consectetur adipiscing', '2017-05-14 01:00:00', '2017-05-14 13:01:00', '12:01:00', '2017-05-17', '01:00:01', 'clock', 2, 0),
+(6, 25, 3, 'Write ebook', ' ', ' ', '', '2017-05-15 03:44:24', '2017-05-15 03:44:25', '00:00:06', '2017-05-25', '01:00:02', 'timer', 0, 0),
+(7, 29, 3, 'Write an E-book about flowers', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '00:00:00', '2017-11-08', '02:00:59', '', 0, 0),
+(8, 25, 2, 'refactoring codes', '', '', '', '2017-05-15 05:37:02', '2017-05-15 05:37:23', '00:00:19', '2017-06-15', '01:00', 'timer', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -184,7 +186,7 @@ ALTER TABLE `member_details`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `teams`
 --
