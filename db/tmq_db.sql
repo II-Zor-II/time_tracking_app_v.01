@@ -1,21 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: May 12, 2017 at 10:11 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `tmq`
 --
@@ -65,7 +47,8 @@ INSERT INTO `member_details` (`pk_id`, `user_id`, `username`, `team`, `position`
 (13, 25, 'user1', 'TWQ', 'Web dev', 'clock'),
 (14, 26, 'William_Shakespeare', 'TWQ', 'Content Writer', 'both'),
 (15, 27, 'Dendy', 'Asian', 'Game dev', 'clock'),
-(16, 28, 'James123', 'Rocket', 'Web dev', 'both');
+(16, 28, 'James123', 'Rocket', 'Web dev', 'both'),
+(17, 29, 'Angelina', 'newTeam', 'Content WRiter', 'both');
 
 -- --------------------------------------------------------
 
@@ -78,7 +61,12 @@ CREATE TABLE `tasks` (
   `user_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `task_name` varchar(50) NOT NULL,
+  `Location` varchar(100) NOT NULL,
+  `Collab` varchar(50) NOT NULL,
   `task_desc` varchar(50) NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `time_spent` time NOT NULL,
   `estimated_date` date NOT NULL,
   `estimated_time` text NOT NULL,
   `type` varchar(20) NOT NULL,
@@ -89,12 +77,11 @@ CREATE TABLE `tasks` (
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`task_id`, `user_id`, `category_id`, `task_name`, `task_desc`, `estimated_date`, `estimated_time`, `type`, `status`) VALUES
-(2, 26, 4, 'new HR task', '', '2017-05-24', '17:00', 'timer', 0),
-(3, 25, 4, 'another one', '', '0000-00-00', '00:00:00', '', 0),
-(4, 25, 4, 'and another', '', '0000-00-00', '00:00:00', '', 0),
-(5, 28, 2, 'program', '', '2017-05-09', '01:00', 'clock', 0),
-(6, 28, 3, 'Write ebook', 'clock', '2017-05-30', '01:30:22', 'timer', 2);
+INSERT INTO `tasks` (`task_id`, `user_id`, `category_id`, `task_name`, `Location`, `Collab`, `task_desc`, `start_date`, `end_date`, `time_spent`, `estimated_date`, `estimated_time`, `type`, `status`) VALUES
+(2, 26, 4, 'new HR task', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '00:00:00', '2017-05-24', '17:00', 'timer', 0),
+(5, 25, 2, 'program', '', '', '', '2017-05-14 19:01:10', '0000-00-00 00:00:00', '00:00:00', '2017-05-17', '01:00:01', 'clock', 0),
+(6, 25, 3, 'Write ebook', '', '', 'clock', '2017-05-14 19:07:20', '0000-00-00 00:00:00', '00:00:00', '2017-05-25', '01:00:02', 'timer', 2),
+(7, 29, 3, 'Write an E-book about flowers', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '00:00:00', '2017-11-08', '02:00:59', '', 0);
 
 -- --------------------------------------------------------
 
@@ -142,7 +129,8 @@ INSERT INTO `users` (`id`, `username`, `password`, `privilege`) VALUES
 (25, 'user1', 'user1', 2),
 (26, 'William_Shakespeare', 'POyuLm', 2),
 (27, 'Dendy', 'swdzuU', 2),
-(28, 'James123', '8D8tpJ', 2);
+(28, 'James123', '8D8tpJ', 2),
+(29, 'Angelina', '6GJsUG', 2);
 
 --
 -- Indexes for dumped tables
@@ -186,17 +174,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `category_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `member_details`
 --
 ALTER TABLE `member_details`
-  MODIFY `pk_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `pk_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `teams`
 --
@@ -206,7 +194,7 @@ ALTER TABLE `teams`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

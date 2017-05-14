@@ -7,7 +7,6 @@ $db = $database->getConnection();
 
 $task = new Task($db);
 $formatted_startDateAndTime = $_GET['start_date']." ".$_GET['start_time'];
-$response = $task->saveStartTime($_GET['task_id'],$formatted_startDateAndTime);
-echo "Done ||".$_GET['task_id']." ".$_GET['start_date']." || ".$_GET['start_time']."||".$response;
+$task->startTimerTask($_GET['task_id'],$formatted_startDateAndTime);
 
 ?>

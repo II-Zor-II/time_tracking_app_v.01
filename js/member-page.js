@@ -20,11 +20,11 @@ $(document).ready(function(){
 	});
 	
 	$("#selct-time-btn").click(function(){
-		//$("time-form").hide.$("#timer-form").show();
 		$.when($("#timer-form").hide()).then(function(){
 			$("#time-form,#timeframe-div").show();
 			$("#LogIdentifier").attr("value",1);
 			console.log($("#LogIdentifier").val());
+			resetTimer();	
 		});
 		event.preventDefault();
 	});	
@@ -91,19 +91,18 @@ $(document).ready(function(){
 		}
 		date = y+"-"+mF+"-"+dF;
 		strtTime = stHrF+":"+stMinF+":"+stSecF;
-		//strtTime = "10:15:05";
 		console.log(date + " " + strtTime);
 		console.log($("#mem-prsnlWorkLog-selection").val());
 		// pass start-date
-
+		if(!startedTimeLog){
 			$.ajax({
 				url: "start-and-end-api.php?task_id="+$("#mem-prsnlWorkLog-selection").val()+"&start_date="+date+"&start_time="+strtTime,		
-				success: function(result){
+				success: function(){
 					console.log("success");	
-					console.log(result);	
+					startedTimeLog = true;
 				}
 			});	
-		
+		}
 		//
 		if(pause%2!=0){
 			$.when($(event.target).html("Start")).then(clearInterval(Interval));	
@@ -116,9 +115,7 @@ $(document).ready(function(){
 	});
 	$("#reset-btn").click(function(){
 		event.preventDefault();
-		clearInterval(Interval);
-		resetTimer();	
-		 $("#elapsed-timer").attr("value","0 : 0 : 0");
+		resetTimer();
 	});
 	//AJAX
 	$("#mem-prsnlWorkLog-selection").change(function(){
@@ -154,9 +151,12 @@ $(document).ready(function(){
 								 );
 	};
 	function resetTimer(){
-		sec = 0;
-		min = 0;
-		hr  = 0;
+		let sec = 0;
+		let min = 0;
+		let hr  = 0;
+		clearInterval(Interval);
+		$("#elapsed-timer").attr("value","0 : 0 : 0");
+		startedTimeLog = false;
 	}
 	
 	

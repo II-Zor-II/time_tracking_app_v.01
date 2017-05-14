@@ -119,12 +119,20 @@ class Task{
 		}
 	}
 	
-	public function saveTaskTimer($task_id){
-
+	public function saveTaskTimer($task_id, $time_spent, $breaks, $time_ended){
+	
 	}
 	
-	public function saveTaskTime(){
-		
+	public function startTimerTask($task_id, $StartTimeInput){
+		$startDateAndTime = $StartTimeInput;
+		$query = "UPDATE ".$this->table_task." SET start_date='".$StartTimeInput."' WHERE task_id=?";
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$task_id);
+		if($stmt->execute()){
+			echo "success";
+		}else{
+			echo "failed";
+		}	
 	}
 	
 	public function saveStartTime($task_id,$StartTimeInput){
@@ -137,7 +145,6 @@ class Task{
 			echo '<script language="javascript">';
 			echo 'alert("StartTime Logged")';
 			echo '</script>';
-			return $startDateAndTime;
 		}else{
 			echo "failed";
 			echo '<script language="javascript">';
