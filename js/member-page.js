@@ -5,6 +5,7 @@
 
 $(document).ready(function(){
 
+
 	let Interval;
 	let sec = 0;
 	let min = 0;
@@ -44,6 +45,28 @@ $(document).ready(function(){
 	//timer buttons
 	$("#start-pause-btn").click(function(){
 		event.preventDefault();
+		let date;
+		let dateObj = new Date();
+		let y = dateObj.getFullYear();
+		let m = dateObj.getMonth()+1;
+		let d = dateObj.getDate();
+		
+		let strtTime;
+		let stSec = dateObj.getSeconds();
+		let stMin = dateObj.getMinutes();
+		let stHr = dateObj.getHours();
+		date = y+"-"+m+"-"+d;
+		strtTime = stHr+":"+stMin+":"+stSec;
+		console.log(date + "/" + strtTime);
+		// pass start-date
+		$.ajax({
+			type: "POST",
+			url: "start-and-end-api.php?task_id="+$("#mem-prsnlWorkLog-selection").val()+"&start_date="+date+"&start_time="+strtTime,			
+			success: function(){
+				console.log("success");		
+    		}
+		});
+		//
 		if(pause%2!=0){
 			$.when($(event.target).html("Start")).then(clearInterval(Interval));	
 		}else{
@@ -62,13 +85,15 @@ $(document).ready(function(){
 	//AJAX
 	$("#mem-prsnlWorkLog-selection").change(function(){
 		console.log("AJAX response");
-		$.ajax({
+		if($("#LogIdentifier").val()==1){
+			$.ajax({
 			url: "task-timeframe.php?task_id="+event.target.value, 	
 			success: function(result){
 				var x = JSON.parse(result);
 				$("#mem-task-timeframe").attr("value",x.estimated_date+" - "+x.estimated_time);			
     		}
-		});	
+		});		
+		}
 	});
 	
 	//TIMER functions

@@ -106,10 +106,7 @@ $task = new Task($db);
 		//Do something here --> $_POST['LogIdentifier];
 		if($_POST['logIdentifier']=="1"){
 			
-			$stmt = $task->saveTaskTimer($_POST['task_id'],$_POST['mem-task-clockIn'],$_POST['wl-elapsed-time']);
-			
-			
-			
+			//$stmt = $task->saveTaskTimer($_POST['task_id'],$_POST['mem-task-clockIn'],$_POST['wl-elapsed-time']);
 			
 			$member_page = "member-dashboard.php?user_id=".$_POST['user_id']."&username=".$_POST['username']."&TIME_SUBMITTED_SUCCESS";
 			header('Location: '.$member_page);
