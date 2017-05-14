@@ -108,39 +108,39 @@ class Task{
 		
 	}
 	
-	
-	
-/*	public function addMember($userinput_username, $userinput_team, $userinput_position, $userinput_settings,$mempass_input){
-		
-		$this->team= $userinput_team;
-		$this->position= $userinput_position;
-		$this->settings= $userinput_settings;
-		$this->mem_pass = $mempass_input;
-		$this->username = $userinput_username;
-		$query = "INSERT INTO ".$this->table_users." SET username=?, password=?, privilege=2";
-		
+	public function getTaskTimeFrame($task_id){
+		$query = "SELECT estimated_date, estimated_time FROM ".$this->table_task." WHERE task_id=?";
 		$stmt = $this->con->prepare($query);
-		$stmt->bindParam(1,$this->username);
-		$stmt->bindParam(2,$this->mem_pass);
-		
+		$stmt->bindParam(1,$task_id);
 		if($stmt->execute()){
-			$this->user_id=$this->con->lastInsertId("id");
-			$this->add_member_details();
+			return $stmt;
 		}else{
-			echo '<script language="javascript">';
-			echo 'alert("Adding Member Failed")';
-			echo '</script>';
+			echo "somethings wrong";
 		}
-	}	
+	}
 	
-	public function readAllMembers(){
+	public function saveTaskTimer($task_id){
+
+	}
+	
+	public function saveTaskTime(){
 		
-		$query = "SELECT * FROM ".$this->table_members." ORDER BY team DESC"; //LIMIT {$from_record_num},{$records_per_page}"
-		$stmt = $this->con->prepare($query);
-		$stmt->execute();
-		return $stmt;
-	}*/
+	}
 	
+	public function saveStartTime(){
+		$query = "SELECT estimated_date, estimated_time FROM ".$this->table_task." WHERE task_id=?";
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$task_id);
+		if($stmt->execute()){
+			return $stmt;
+		}else{
+			echo "somethings wrong";
+		}
+	}
+	
+	public function resetStartTime(){
+		
+	}
 }
 
 ?>
