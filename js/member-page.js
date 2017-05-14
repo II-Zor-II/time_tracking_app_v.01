@@ -40,16 +40,17 @@ $(document).ready(function(){
 		});
 		event.preventDefault();
 	});
-	$("#save-worklog").hover(function(){
-		console.log("hovered");
+	$("#save-worklog").hover(function(){		
 		setDate();
 		$("#time-ended").attr("value",date+" "+strtTime);
 		
 	});
+	$("#mem-myTimeframe").click(function(){
+		window.location.href="/tmq/member-timeframe.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name")+"&member=true";
+	});
 	
 	
-	
-	$("#memWorkLog-Cancel").click(function(){
+	$("#memWorkLog-Cancel,#Cancel-member").click(function(){
 		event.preventDefault();
 		window.location.href="/tmq/member-dashboard.php?user_id="+event.target.getAttribute("uid")+"&username="+event.target.getAttribute("un");
 	});

@@ -22,7 +22,7 @@ if(isset($_GET['user_id'])){
   	<div class="row col-xs-offset-1">
 		<button class="btn btn-primary" id="mem-myWorklog" value="<?php echo $_GET['user_id']?>" name="<?php echo $_GET['username']?> ">My Worklog</button>
 		<button class="btn btn-warning" id="mem-myWorklog-ChR">Worklog Chart Report</button>
-		<button class="btn btn-success" id="mem-myTimeframe">My Timeframes</button>
+		<button class="btn btn-success" id="mem-myTimeframe" value='<?php echo $_GET['user_id']?>' name='<?php echo $_GET['username']?>'>My Timeframes</button>
 	</div>
    	<table class="table table-bordered">
     <thead>
