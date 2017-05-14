@@ -12,7 +12,8 @@ if(isset($_GET['user_id'])){
 }
 ?>
 	<div>
- 	<?php echo "<h2>{$_GET['username']} Worklog</h2>";?>
+ 	<?php echo "<h2><strong>{$_GET['username']}</strong> WORKLOG</h2>";?>
+  	<hr>
    	<table class="table table-bordered">
     <thead>
       <tr>
@@ -46,27 +47,28 @@ if(isset($_GET['user_id'])){
 				$statusString = "done";
 				break;
 		}
-      	
 		echo "<tr>";
 			echo "<td>{$task_name}</td>";
-			echo "<td></td>"; //2location
-			echo "<td></td>"; //3collab
-			echo "<td></td>"; //4description
-			echo "<td></td>"; //5start
-			echo "<td></td>"; //6end
-			echo "<td></td>"; //total
-			echo "<td></td>"; //type - timer - clock
+			echo "<td>{$Location}</td>"; //2location
+			echo "<td>{$Collab}</td>"; //3collab
+			echo "<td>{$task_desc}</td>"; //4description
+			echo "<td>{$start_date}</td>"; //5start
+			echo "<td>{$end_date}</td>"; //6end
+			echo "<td>{$time_spent}</td>"; //total
+			echo "<td>{$type}</td>"; //type - timer - clock
 			echo "<td>{$statusString}</td>";
 			echo "<td></td>";//break log
 		echo "</tr>";
 	}
 ?>
     </tbody>
-    </table>
+    </table>	
+    </div>
+    <hr>
     <div>
 		<button class="btn btn-danger" id="Cancel">Close</button>
 	</div>		
-    </div>
+
 
 
 <?php 
