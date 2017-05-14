@@ -5,6 +5,7 @@
 
 $(document).ready(function(){
 
+	let startedTimeLog = false;
 
 	let Interval;
 	let sec = 0;
@@ -50,22 +51,59 @@ $(document).ready(function(){
 		let y = dateObj.getFullYear();
 		let m = dateObj.getMonth()+1;
 		let d = dateObj.getDate();
+		let mF;
+		let dF;
+		
 		
 		let strtTime;
 		let stSec = dateObj.getSeconds();
 		let stMin = dateObj.getMinutes();
 		let stHr = dateObj.getHours();
-		date = y+"-"+m+"-"+d;
-		strtTime = stHr+":"+stMin+":"+stSec;
-		console.log(date + "/" + strtTime);
+		// F = format
+		let stSecF;
+		let stMinF;
+		let stHrF;
+
+		if(stSec<10){
+			stSecF = "0"+stSec;
+		}else{
+			stSecF = stSec;
+		}
+		if(stMin<10){
+			stMinF = "0"+stMin;
+		}else{
+			stMinF = stMin;
+		}
+		if(stHr<10){
+			stHrF = "0"+stHr;
+		}else{
+			stHrF = stHr;
+		}
+		if(m<10){
+			mF = "0"+m;
+		}else{
+			mF = m;
+		}
+		if(d<10){
+			dF = "0"+d;
+		}else{
+			dF = d;	
+		}
+		date = y+"-"+mF+"-"+dF;
+		strtTime = stHrF+":"+stMinF+":"+stSecF;
+		//strtTime = "10:15:05";
+		console.log(date + " " + strtTime);
+		console.log($("#mem-prsnlWorkLog-selection").val());
 		// pass start-date
-		$.ajax({
-			type: "POST",
-			url: "start-and-end-api.php?task_id="+$("#mem-prsnlWorkLog-selection").val()+"&start_date="+date+"&start_time="+strtTime,			
-			success: function(){
-				console.log("success");		
-    		}
-		});
+
+			$.ajax({
+				url: "start-and-end-api.php?task_id="+$("#mem-prsnlWorkLog-selection").val()+"&start_date="+date+"&start_time="+strtTime,		
+				success: function(result){
+					console.log("success");	
+					console.log(result);	
+				}
+			});	
+		
 		//
 		if(pause%2!=0){
 			$.when($(event.target).html("Start")).then(clearInterval(Interval));	

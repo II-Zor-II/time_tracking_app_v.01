@@ -109,7 +109,7 @@ class Task{
 	}
 	
 	public function getTaskTimeFrame($task_id){
-		$query = "SELECT estimated_date, estimated_time FROM ".$this->table_task." SET start WHERE task_id=?";
+		$query = "SELECT estimated_date, estimated_time FROM ".$this->table_task." WHERE task_id=?";
 		$stmt = $this->con->prepare($query);
 		$stmt->bindParam(1,$task_id);
 		if($stmt->execute()){
@@ -127,17 +127,17 @@ class Task{
 		
 	}
 	
-	public function saveStartTime($task_id,$start_date,$Start_time){
-		$startDateAndTime = $start_date+" "+$start_time;
-		$query = "UPDATE ".$this->table_task." SET Start=? WHERE task_id=?";
+	public function saveStartTime($task_id,$StartTimeInput){
+		$startDateAndTime = $StartTimeInput;
+		$query = "UPDATE ".$this->table_task." SET start_date='".$StartTimeInput."' WHERE task_id=?";
 		$stmt = $this->con->prepare($query);
-		$stmt->bindParam(1,$startDateAndTime);
-		$stmt->bindParam(2,$task_id);
+		$stmt->bindParam(1,$task_id);
 		if($stmt->execute()){
 			echo "success";
 			echo '<script language="javascript">';
 			echo 'alert("StartTime Logged")';
 			echo '</script>';
+			return $startDateAndTime;
 		}else{
 			echo "failed";
 			echo '<script language="javascript">';
