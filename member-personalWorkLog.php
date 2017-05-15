@@ -65,7 +65,7 @@ $task = new Task($db);
 			<table id="timer-form" style="display:none">
 				<tr>
 					<td>
-						<input value="" id="elapsed-timer" type="text" placeholder="hours:minutes:seconds" class="text-center" name="wl-elapsed-time"/>
+						<input value="" id="elapsed-timer" type="text" placeholder="hours:minutes:seconds" class="text-center" name="wl-elapsed-time" readonly/>
 					</td>
 					<td>
 						<button id="start-pause-btn" class="btn btn-primary">Start</button>

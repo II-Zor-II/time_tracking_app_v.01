@@ -18,6 +18,7 @@ $(document).ready(function(){
 	let pause = 2;
 	let date;
 	let strtTime;
+	
 	$("#mem-myWorklog").click(function(){
 		window.location.href="/tmq/member-personalWorkLog.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
 	});
@@ -126,9 +127,9 @@ $(document).ready(function(){
 								 );
 	};
 	function resetTimer(){
-		let sec = 0;
-		let min = 0;
-		let hr  = 0;
+		 sec = 0;
+		 min = 0;
+		 hr  = 0;
 		clearInterval(Interval);
 		$("#elapsed-timer").attr("value","0 : 0 : 0");
 		startedTimeLog = false;
