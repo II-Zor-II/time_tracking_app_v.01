@@ -67,11 +67,10 @@ $(document).ready(function(){
 	
 	//add-timeframe functions with AJAX
 	$("#tf-task-categ").change(function(){
-		
 		$('#tf-task-selection').find('option').remove();
 		console.log("AJAX response");
 		$.ajax({
-			url: "category_task_list.php?category_id="+event.target.value, 	
+			url: "category_unfTask_list.php?category_id="+event.target.value, 	
 			success: function(result){
         		console.log(result);
 				//$("#tf-task-selection")

@@ -56,6 +56,21 @@ class Task{
 		
 	}
 	
+	public function getTaskUnfinishedOfCategory($category_id){
+		
+		$query = "SELECT * FROM ".$this->table_task." WHERE category_id=? AND status<>2";
+		
+		$this->category_id = $category_id;
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$this->category_id);
+		if($stmt->execute()){
+			return $stmt;
+		}else{
+			echo "somethings wrong";
+		}
+		
+	}
+	
 	public function getTaskNamesforCtg($category_id){
 		
 		$query = "SELECT task_name FROM ".$this->table_task." WHERE category_id=?";
