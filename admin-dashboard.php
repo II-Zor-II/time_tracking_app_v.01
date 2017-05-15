@@ -56,7 +56,7 @@ $db = $database->getConnection();
 		echo "<td>			
 				<button class='btn btn-success admin-mem-tfBtn' value='{$user_id}' name='{$username}'>Timeframe</button>
 				<button class='btn btn-primary admin-mem-worklog' value='{$user_id}' name='{$username}'>Worklog</button>
-				<button class='btn btn-warning'>Add Task</button>
+				<button class='btn btn-warning admin-mem-addTask' value='{$user_id}'>Add Task</button>
 			  </td>";
 		echo "</tr>";
 	}

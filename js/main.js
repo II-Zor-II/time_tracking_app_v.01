@@ -29,6 +29,9 @@ $(document).ready(function(){
 		console.log("test");
 		window.location.href="/tmq/member-work-log.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
 	});
+	$('.admin-mem-addTask').click(function(){
+		window.location.href="/tmq/add-timeframe.php?user_id="+$(this).attr("value");
+	});
 	//
 	$("#Cancel").click(function(){
 		event.preventDefault();
@@ -47,23 +50,36 @@ $(document).ready(function(){
 		$("#password-input").attr("placeholder",generatedPw);
 		$("#password-input").val(generatedPw);
 	});
-	
-	//
-	$("#timeFrame-team-selector").change(function(){
-		$('#tf-teamMembers').find('option').remove();
+	if($("#tf-teamMembers").attr("uid")!=""){
+		console.log($("#tf-teamMembers").attr("uid"));
+		$("#timeFrame-team-selector").attr('disabled','disabled');
 		$.ajax({
-			url: "team-member-list.php?team_name="+event.target.value, 	
-			success: function(result){
-				$('#mem-options').show();
-				$("#tf-teamMembers").append('<option value="" disabled selected>Select a member</option>');
-				var x = JSON.parse(result);
-				for(i=0;i<Object.keys(x).length;i++){
-					$("#tf-teamMembers").append('<option value="'+x[i].user_id+'">'+x[i].username+'</option>');
+				url: "team-member-api.php?user_id="+$("#tf-teamMembers").attr("uid"), 	
+				success: function(result){
+					$('#mem-options').show();
+					$("#tf-teamMembers").append('<option value="" disabled selected>Select a member</option>');
+					var x = JSON.parse(result);
+					$("#tf-teamMembers").append('<option selected="selected" value="'+x.user_id+'">'+x.username+'</option>');	
+					
 				}
-    		}
+			});	
+	}else{
+		$("#timeFrame-team-selector").change(function(){
+			$('#tf-teamMembers').find('option').remove();
+			$.ajax({
+				url: "team-member-list.php?team_name="+event.target.value, 	
+				success: function(result){
+					$('#mem-options').show();
+					$("#tf-teamMembers").append('<option value="" disabled selected>Select a member</option>');
+					var x = JSON.parse(result);
+					for(i=0;i<Object.keys(x).length;i++){
+						$("#tf-teamMembers").append('<option value="'+x[i].user_id+'">'+x[i].username+'</option>');
+					}
+				}
+			});	
 		});	
-		
-	});
+	}
+
 	
 	//add-timeframe functions with AJAX
 	$("#tf-task-categ").change(function(){

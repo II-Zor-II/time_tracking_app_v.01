@@ -69,7 +69,7 @@ $db = $database->getConnection();
 		</div>	
 		<div class="form-group col-xs-12" id="mem-options">
 			<label for="task">Member</label>
-			<select name="tf-task-member" id="tf-teamMembers">
+			<select name="tf-task-member" id="tf-teamMembers" uid="<?php if(!empty($_GET['user_id'])){echo $_GET['user_id'];}?>">
 			</select>
 		</div>	
 		<div>
