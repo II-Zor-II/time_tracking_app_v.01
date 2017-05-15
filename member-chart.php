@@ -16,4 +16,6 @@ echo "<input style='display:none' value='{$_GET['user_id']}' id='chartUserId'/>"
 
 <?php 
 include_once 'footer.php';	
+echo "<script src='js/chart-bundle.js'></script>
+<script src='js/chart.js'></script>";
 ?>

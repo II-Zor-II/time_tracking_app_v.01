@@ -11,7 +11,7 @@ $stmt = $members->getmemberByUID($_GET['user_id']);
 $outputArr = array();
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 extract($row);
-array_push($outputArr,$row['username'],$row['total_hoursOfWork']);
+array_push($outputArr,$row['username']);
 $task = new Task($db);
 $stmt = $task->getTasksOfMember($_GET['user_id']);
 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){

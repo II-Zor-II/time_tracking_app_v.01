@@ -9,9 +9,9 @@ $(document).ready(function(){
 			console.log(result);
 			//$("#tf-task-selection")
 			let x = JSON.parse(result);
-			let totalHrs = TimeToSeconds(x[1]);
-			console.log(totalHrs);
 			$("#chart-member-name").html(x[0]+" Chart Report");
+			x.shift();
+			console.log(x);
 			let taskLabels =  x.filter(function(e, i) { // e for element, i for index
 			  return (i % 2 === 0);
 			});
@@ -24,7 +24,7 @@ $(document).ready(function(){
 				return TimeToSeconds(time); // return the sum of the timespent into total seconds
 			});
 			console.log(taskTimeSpentFormatted);
-			drawChart(totalHrs,taskLabels,taskTimeSpentFormatted);
+			drawChart(taskLabels,taskTimeSpentFormatted);
 		}
 	});	
 	function TimeToSeconds(timeStr){
@@ -37,7 +37,7 @@ $(document).ready(function(){
   	}
 });
 
-function drawChart(totalHrs,taskLabels,taskTimeSpentFormatted){
+function drawChart(taskLabels,taskTimeSpentFormatted){
 	const CHART = $("#memberChart");
 	let colors = [];
 	for(i=0;i<taskLabels.length;i++){
