@@ -8,6 +8,7 @@ class Member{
 	private $pk_id;
 	private $mem_pass;
 	public $totalNumOfHrs;
+	private $privilege;
 	
 	private $con;
 	private $table_users = "users";
@@ -45,12 +46,17 @@ class Member{
 		$this->settings= $userinput_settings;
 		$this->mem_pass = $mempass_input;
 		$this->username = $userinput_username;
-		$query = "INSERT INTO ".$this->table_users." SET username=?, password=?, privilege=2";
+		if($this->position=='Admin'||$this->position=='admin'||$this->position=='supervisor'||$this->position=='administrator'){
+			$this->privilege=1;
+		}else{
+			$this->privilege=2;
+		}
+		$query = "INSERT INTO ".$this->table_users." SET username=?, password=?, privilege=?";
 		
 		$stmt = $this->con->prepare($query);
 		$stmt->bindParam(1,$this->username);
 		$stmt->bindParam(2,$this->mem_pass);
-		
+		$stmt->bindParam(3,$this->privilege);
 		if($stmt->execute()){
 			$this->user_id=$this->con->lastInsertId("id");
 			$this->add_member_details();
