@@ -48,7 +48,10 @@ $(document).ready(function(){
 	$("#mem-myTimeframe").click(function(){
 		window.location.href="/tmq/member-timeframe.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name")+"&member=true";
 	});
-	
+	$("#mem-myWorklog-ChR").click(function(){
+		event.preventDefault();
+		window.location.href="/tmq/member-chart.php?user_id="+$("#mem-myWorklog").attr("value")+"&username="+$("#mem-myWorklog").attr("name");
+	});
 	
 	$("#memWorkLog-Cancel,#Cancel-member").click(function(){
 		event.preventDefault();

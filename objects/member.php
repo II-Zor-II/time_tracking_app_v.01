@@ -7,6 +7,7 @@ class Member{
 	public $settings;
 	private $pk_id;
 	private $mem_pass;
+	public $totalNumOfHrs;
 	
 	private $con;
 	private $table_users = "users";
@@ -91,6 +92,40 @@ class Member{
 			echo "somethings wrong";
 		}
 	}
+	
+	public function calculateTotalHours($user_id,$tasks_instance){
 
+		$tasks_stmt = $tasks_instance->getTasksOfMember($user_id);
+		$totalSeconds = 0;
+		while($row = $tasks_stmt->fetch(PDO::FETCH_ASSOC)){
+			extract($row);
+
+			$time = explode(":", $row['time_spent']);
+			$totalSeconds += $time[0]*3600;
+			$totalSeconds += $time[1]*60;
+			$totalSeconds += $time[2];
+		}
+		$hours = number_format($totalSeconds/3600);
+		$minutes = number_format(($totalSeconds%3600)/60);
+		$seconds = ($totalSeconds%3600)%60;
+		if($hours<10){
+			$hours = "0".$hours;
+		}
+		if($minutes<10){
+			$minutes = "0".$minutes;
+		}
+		if($seconds<10){
+			$seconds = "0".$seconds;
+		}
+		
+		$this->totalNumOfHrs = $hours.":".$minutes.":".$seconds;
+		echo "<br><br>";
+		echo $this->totalNumOfHrs;
+		$query = "UPDATE ".$this->table_members." SET total_hoursOfWork=? WHERE user_id=?";
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$this->totalNumOfHrs);
+		$stmt->bindParam(2,$user_id);
+		$stmt->execute();
+	}
 }
 ?>

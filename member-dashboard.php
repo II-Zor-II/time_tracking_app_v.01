@@ -3,6 +3,7 @@
 include_once 'header.php';
 include_once 'objects/task.php';
 include_once 'db/db.php';
+include_once 'objects/member.php';
 
 if(isset($_GET['user_id'])){
 	$database = new Database();
@@ -71,6 +72,15 @@ if(isset($_GET['user_id'])){
 		echo "</tr>";
 	}
 ?>
+    <tr>
+    	<td><strong>Total hours:</strong></td>
+    	<td></td>
+    	<td></td>
+    	<td></td>
+    	<td></td>
+    	<td></td>
+    	<td><strong><?php $member = new Member($db); $member->calculateTotalHours($user_id,$task);?></strong></td>
+    </tr>
     </tbody>
     </table>	
     </div>
