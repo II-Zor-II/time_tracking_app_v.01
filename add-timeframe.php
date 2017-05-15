@@ -17,6 +17,7 @@ $db = $database->getConnection();
 			<div class="col-xs-6">
 				<label for="task-category">Category</label>
 				<select name="task-category" id="tf-task-categ">
+					<option value="" disabled selected>Select a Category</option>
 					<?php 
 					$category = new Category($db);					
 					$stmt = $category->readCategory();
@@ -52,6 +53,7 @@ $db = $database->getConnection();
 		<div class="form-group col-xs-12">
 				<label for="task">Teams</label>
 				<select name="tf-teams" id="timeFrame-team-selector">
+				<option value="" disabled selected>Select a Team</option>
 					<?php 
 					$team = new Team($db);					
 					$stmt = $team->readTeams();

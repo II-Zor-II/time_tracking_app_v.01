@@ -55,6 +55,7 @@ $(document).ready(function(){
 			url: "team-member-list.php?team_name="+event.target.value, 	
 			success: function(result){
 				$('#mem-options').show();
+				$("#tf-teamMembers").append('<option value="" disabled selected>Select a member</option>');
 				var x = JSON.parse(result);
 				for(i=0;i<Object.keys(x).length;i++){
 					$("#tf-teamMembers").append('<option value="'+x[i].user_id+'">'+x[i].username+'</option>');
@@ -66,6 +67,7 @@ $(document).ready(function(){
 	
 	//add-timeframe functions with AJAX
 	$("#tf-task-categ").change(function(){
+		
 		$('#tf-task-selection').find('option').remove();
 		console.log("AJAX response");
 		$.ajax({
@@ -74,6 +76,7 @@ $(document).ready(function(){
         		console.log(result);
 				//$("#tf-task-selection")
 				var x = JSON.parse(result);
+				$("#tf-task-selection").append('<option value="" disabled selected>Select a Category</option>');
 				for(i=0;i<Object.keys(x).length;i++){
 					$("#tf-task-selection").append('<option value="'+x[i].task_id+'">'+x[i].task_name+'</option>');
 				}

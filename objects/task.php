@@ -150,7 +150,9 @@ class Task{
 		$stmt->bindParam(6,$this->time_spent);	
 		$stmt->bindParam(7,$this->task_id);	
 		if($stmt->execute()){
-			echo "success";
+			echo '<script language="javascript">';
+			echo 'alert("Success")';
+			echo '</script>';
 		}else{
 			echo "failed";
 		}		
@@ -166,7 +168,9 @@ class Task{
 		$stmt->bindParam(4,$task_id);
 
 		if($stmt->execute()){
-			echo "success";
+			echo '<script language="javascript">';
+			echo 'alert("Success")';
+			echo '</script>';
 		}else{
 			echo "failed";
 		}	
@@ -178,7 +182,9 @@ class Task{
 		$stmt = $this->con->prepare($query);
 		$stmt->bindParam(1,$task_id);
 		if($stmt->execute()){
-			echo "success";
+			echo '<script language="javascript">';
+			echo 'alert("Success")';
+			echo '</script>';
 		}else{
 			echo "failed";
 		}	
@@ -190,7 +196,7 @@ class Task{
 		$stmt = $this->con->prepare($query);
 		$stmt->bindParam(1,$task_id);
 		if($stmt->execute()){
-			echo "success";
+
 			echo '<script language="javascript">';
 			echo 'alert("StartTime Logged")';
 			echo '</script>';
