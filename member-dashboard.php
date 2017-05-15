@@ -62,7 +62,7 @@ if(isset($_GET['user_id'])){
 			echo "<td>{$task_name}</td>";
 			echo "<td>{$Location}</td>"; //2location
 			echo "<td>{$Collab}</td>"; //3collab
-			echo "<td>{$task_desc}</td>"; //4description
+			echo "<td><div style='max-height:125px;overflow:auto;width:130px;'>{$task_desc}</div></td>"; //4description
 			echo "<td>{$start_date}</td>"; //5start
 			echo "<td>{$end_date}</td>"; //6end
 			echo "<td>{$time_spent}</td>"; //total

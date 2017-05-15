@@ -61,11 +61,11 @@ class Member{
 		}
 	}
 	
-	private function getmemberByUID($user_id){ // will be used later to check for duplicate usernames
+	public function getmemberByUID($user_id){ // will be used later to check for duplicate usernames
 		$query = "SELECT * FROM ".$this->table_members." WHERE user_id=?"; //LIMIT {$from_record_num},{$records_per_page}"
 		$this->username = $user_id;
-		$stmt->bindParam(1,$this->username);
 		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$this->username);
 		if($stmt->execute()){
 			return $stmt;
 		}else{
