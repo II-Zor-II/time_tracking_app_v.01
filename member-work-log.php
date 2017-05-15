@@ -14,7 +14,7 @@ if(isset($_GET['user_id'])){
 	<div>
  	<?php echo "<h2><strong>{$_GET['username']}</strong> WORKLOG</h2>";?>
   	<hr>
-   	<table class="table table-bordered">
+   	<table class="table table-bordered" id="memberWorkLog">
     <thead>
       <tr>
         <th>task name</th>
@@ -67,6 +67,7 @@ if(isset($_GET['user_id'])){
     <hr>
     <div>
 		<button class="btn btn-danger" id="Cancel">Close</button>
+		<button class="btn btn-primary" id="convertToExcel">Import</button>
 	</div>		
 
 
