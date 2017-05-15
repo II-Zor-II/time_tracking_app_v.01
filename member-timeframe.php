@@ -55,7 +55,7 @@ if(isset($_GET['user_id'])){
     </tbody>
   </table>
 <div>
-	<button class="btn btn-danger" id="Cancel<?php if($_GET['member']){echo "-member";}?>" uid="<?php echo $_GET['user_id'];?>" un="<?php echo $_GET['username'];?>">Close</button>
+	<button class="btn btn-danger" id="Cancel<?php if(!empty($_GET['member'])){echo "-member";}?>" uid="<?php echo $_GET['user_id'];?>" un="<?php echo $_GET['username'];?>">Close</button>
 </div>
 </div>
 
