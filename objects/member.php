@@ -133,5 +133,19 @@ class Member{
 		$stmt->bindParam(2,$user_id);
 		$stmt->execute();
 	}
+	
+	public function getPrivilegeOfUser($user_id){
+		$query = "SELECT privilege FROM ".$this->table_users." WHERE id=?"; //LIMIT {$from_record_num},{$records_per_page}"
+		$this->user_id = $user_id;
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$this->user_id);
+		if($stmt->execute()){
+			return $stmt;
+		}else{
+			echo '<script language="javascript">';
+			echo 'alert("Failed")';
+			echo '</script>';
+		}
+	}
 }
 ?>

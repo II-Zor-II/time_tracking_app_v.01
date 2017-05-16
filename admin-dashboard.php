@@ -53,12 +53,19 @@ $db = $database->getConnection();
 		echo "<td>{$team}</td>";
 		echo "<td>{$username}</td>";
 		echo "<td>{$position}</td>";
-		echo "<td>			
+		$stmt2 = $members->getPrivilegeOfUser($row['user_id']);
+		$row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+		extract($row2);
+		if($row2['privilege']==1){
+			echo "<td></td>";
+		}else{
+			echo "<td>			
 				<button class='btn btn-success admin-mem-tfBtn' value='{$user_id}' name='{$username}'>Timeframe</button>
 				<button class='btn btn-primary admin-mem-worklog' value='{$user_id}' name='{$username}'>Worklog</button>
 				<button class='btn btn-warning admin-mem-addTask' value='{$user_id}'>Add Task</button>
-			  </td>";
-		echo "</tr>";
+			  	  </td>";
+			echo "</tr>";	
+		}
 	}
 			
 ?>
