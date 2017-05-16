@@ -1,11 +1,10 @@
 <?php
 
-include_once 'header.php';
-include_once '/db/db.php';
+include_once dirname(__FILE__).'/header.php';
+include_once dirname(__FILE__).'/db/db.php';
 //include_once 'objects/member.php';
 
 ///session_start();
-
 if(isset($_POST['submit'])){
 
 if(isset($_POST['username'])&&isset($_POST['password'])){

@@ -1,7 +1,7 @@
 <?php
-include_once 'header.php';
-include_once 'db/db.php';
-include_once 'objects/member.php';
+include_once dirname(__FILE__)."/".'header.php';
+include_once dirname(__FILE__)."/".'db/db.php';
+include_once dirname(__FILE__)."/".'objects/member.php';
 
 $database = new Database();
 $db = $database->getConnection();

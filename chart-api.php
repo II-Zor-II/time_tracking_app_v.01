@@ -1,7 +1,7 @@
 <?php
-include_once 'db/db.php';
-include_once 'objects/member.php';
-include_once 'objects/task.php';
+include_once dirname(__FILE__)."/".'db/db.php';
+include_once dirname(__FILE__)."/".'objects/member.php';
+include_once dirname(__FILE__)."/".'objects/task.php';
 // total number of hours, time spent for a task, number of tasks
 $database = new Database();
 $db = $database->getConnection();

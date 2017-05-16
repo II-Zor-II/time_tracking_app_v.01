@@ -1,6 +1,5 @@
 <?php
-include_once 'header.php';
-
+include_once dirname(__FILE__)."/".'header.php';
 ?>
 
 <button class="btn">Register</button>
