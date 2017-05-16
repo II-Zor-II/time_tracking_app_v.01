@@ -1,42 +1,46 @@
 
 $(document).ready(function(){
 	//hides certain selection boxes
+ 
+    var a = window.location.href.split("/");
+    var b = a.slice(0,-1);
+    var path = b.join("/");
 	$('#mem-options').hide();
 	$("#tf-task-categ").prop("disabled",true);
 	//--------------------------
 	$('#logout-btn').click(function(){
-		window.location.href="/tmq/index.php";
+		window.location.href=path+"/index.php";
 	});
 	//
 	$("#add-member-btn").click(function(){
-		window.location.href="/tmq/add-member.php";
+		window.location.href=path+"/add-member.php";
 	});
 	$("#add-team-btn").click(function(){
-		window.location.href="/tmq/add-team.php";
+		window.location.href=path+"/add-team.php";
 	});
 	$("#add-category-btn").click(function(){
-		window.location.href="/tmq/add-category.php";
+		window.location.href=path+"/add-category.php";
 	});
 	$("#add-task-btn").click(function(){
-		window.location.href="/tmq/add-task.php";
+		window.location.href=path+"/add-task.php";
 	});
 	$("#add-timeframe-btn").click(function(){
-		window.location.href="/tmq/add-timeframe.php";
+		window.location.href=path+"/add-timeframe.php";
 	});
 	$('.admin-mem-tfBtn').click(function(){
-		window.location.href="/tmq/member-timeframe.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
+		window.location.href=path+"/member-timeframe.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
 	});
 	$('.admin-mem-worklog').click(function(){
 		console.log("test");
-		window.location.href="/tmq/member-work-log.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
+		window.location.href=path+"/member-work-log.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
 	});
 	$('.admin-mem-addTask').click(function(){
-		window.location.href="/tmq/add-timeframe.php?user_id="+$(this).attr("value");
+		window.location.href=path+"/add-timeframe.php?user_id="+$(this).attr("value");
 	});
 	//
 	$("#Cancel").click(function(){
 		event.preventDefault();
-		window.location.href="/tmq/admin-dashboard.php";
+		window.location.href=path+"/admin-dashboard.php";
 	});
 	// Create a new password on page load
 	$("#memPwG-btn").click(function(){

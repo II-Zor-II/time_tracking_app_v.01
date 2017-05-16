@@ -4,7 +4,10 @@
 
 
 $(document).ready(function(){
-
+    var a = window.location.href.split("/");
+    var b = a.slice(0,-1);
+    var path = b.join("/");
+ 
 	let startedTimeLog = false;
 	let breaksCtr = 0;
 	
@@ -18,7 +21,7 @@ $(document).ready(function(){
 	let pause = 2;
 	let date;
 	let strtTime;
-	
+	console.log(window.location.href);
 	console.log($("#mpw-Settings").val());
 	if($("#mpw-Settings").val()=='timer'){
 		$.when($("#time-form,#timeframe-div").hide()).then(function(){
@@ -31,7 +34,7 @@ $(document).ready(function(){
 		console.log($("#LogIdentifier").val());
 	}
 	$("#mem-myWorklog").click(function(){
-		window.location.href="/tmq/member-personalWorkLog.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
+		window.location.href= path+"/member-personalWorkLog.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
 	});
 	
 	$("#selct-time-btn").click(function(){
@@ -58,16 +61,16 @@ $(document).ready(function(){
 		
 	});
 	$("#mem-myTimeframe").click(function(){
-		window.location.href="/tmq/member-timeframe.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name")+"&member=true";
+		window.location.href=path+"/member-timeframe.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name")+"&member=true";
 	});
 	$("#mem-myWorklog-ChR").click(function(){
 		event.preventDefault();
-		window.location.href="/tmq/member-chart.php?user_id="+$("#mem-myWorklog").attr("value")+"&username="+$("#mem-myWorklog").attr("name");
+		window.location.href=path+"/member-chart.php?user_id="+$("#mem-myWorklog").attr("value")+"&username="+$("#mem-myWorklog").attr("name");
 	});
 	
 	$("#memWorkLog-Cancel,#Cancel-member").click(function(){
 		event.preventDefault();
-		window.location.href="/tmq/member-dashboard.php?user_id="+event.target.getAttribute("uid")+"&username="+event.target.getAttribute("un");
+		window.location.href=path+"/member-dashboard.php?user_id="+event.target.getAttribute("uid")+"&username="+event.target.getAttribute("un");
 	});
 	
 	//timer buttons
