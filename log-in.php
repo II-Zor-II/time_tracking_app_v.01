@@ -50,7 +50,10 @@ if(isset($_POST['username'])&&isset($_POST['password'])){
 		}
 	}else{
 		echo '<script language="javascript">';
-		echo 'alert("Incorrect Credentials");window.location.href="/tmq/index.php";; ';
+        echo ' var a = window.location.href.split("/");
+               var b = a.slice(0,-1);
+               var path = b.join("/");';
+		echo 'alert("Incorrect Credentials");window.location.href=path+"/index.php";; ';
 		echo '</script>';
 	}
 }else
