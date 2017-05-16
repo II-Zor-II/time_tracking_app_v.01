@@ -1,7 +1,8 @@
 --
 -- Database: `tmq`
 --
-
+CREATE DATABASE IF NOT EXISTS `tmq` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `tmq`;
 -- --------------------------------------------------------
 
 --
