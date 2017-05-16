@@ -109,10 +109,17 @@ $task = new Task($db);
 		if($_POST['logIdentifier']=="1"){
 		//saveTaskTime($task_id, $clock_in, $task_endTime, $cloud_file_url, $collab_with, $task_descrption)
 			
+			
+		if(strtotime($_POST['mem-task-clockIn'])>=strtotime($_POST['task-endTime'])){
+			$member_page = "member-personalWorkLog.php?user_id=".$_POST['user_id']."&username=".$_POST['username']."&FAILED&reason=clockInAndEndTimeIncorrect";
+			header('Location: '.$member_page);	
+		}else{
 		$stmt = $task->saveTaskTime($_POST['task_id'],$_POST['mem-task-clockIn'],$_POST['task-endTime'],$_POST['cloudFile-url'],$_POST['task-collab-wth'],$_POST['task-description']);	
 			
 		$member_page = "member-dashboard.php?user_id=".$_POST['user_id']."&username=".$_POST['username']."&TIME_SUBMITTED_SUCCESS";
 			header('Location: '.$member_page);
+		}
+			
 		}else if($_POST['logIdentifier']=="2"){
 
 		$stmt = $task->saveTaskTimer($_POST['task_id'],$_POST['wl-elapsed-time'],$_POST['tot-breaks'],$_POST['time-ended']);

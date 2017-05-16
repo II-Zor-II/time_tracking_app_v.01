@@ -20,6 +20,7 @@ if (isset($_POST['position'])) {
 			<label class="control-label col-sm-2" for="team">Team</label>
 			<div class="col-sm-10">
 				<select name="team">
+					<option value="" disabled selected>Select Team</option>
 					<?php 
 					$team = new Team($db);					
 					$stmt = $team->readTeams();

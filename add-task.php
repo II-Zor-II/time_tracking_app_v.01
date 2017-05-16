@@ -18,6 +18,7 @@ include_once 'objects/category.php';
             <td>Select Category</td>
 			<td>
 				<select name="task-category">
+					<option value="" disabled selected>Select Category</option>
 					<?php 
 					$category = new Category($db);					
 					$stmt = $category->readCategory();

@@ -129,6 +129,7 @@ function randString(){
   var possible = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   var dataSet = possible.split(','); 
   var text = '';
+ // change 6 for password length here
   for(var i=0; i < 6; i++) {
 	text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
