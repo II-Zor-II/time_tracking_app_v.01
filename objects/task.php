@@ -123,7 +123,6 @@ class Task{
 		$stmt->bindParam(3,$this->est_time);
 		$stmt->bindParam(4,$this->task_id);
 		if($stmt->execute()){
-			echo "success";
 			echo '<script language="javascript">';
 			echo 'alert("Timeframe Created")';
 			echo '</script>';
