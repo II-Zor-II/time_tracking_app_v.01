@@ -2,6 +2,7 @@
 $(document).ready(function(){
 	//hides certain selection boxes
 	$('#mem-options').hide();
+	$("#tf-task-categ").prop("disabled",true);
 	//--------------------------
 	$('#logout-btn').click(function(){
 		window.location.href="/tmq/index.php";
@@ -50,7 +51,8 @@ $(document).ready(function(){
 		$("#password-input").attr("placeholder",generatedPw);
 		$("#password-input").val(generatedPw);
 	});
-	if($("#tf-teamMembers").attr("uid")!=""){
+	if($("#tf-teamMembers").attr("uid")!=""){		
+		$("#tf-task-categ").prop("disabled",false);
 		console.log($("#tf-teamMembers").attr("uid"));
 		$("#timeFrame-team-selector").attr('disabled','disabled');
 		$.ajax({
@@ -66,6 +68,7 @@ $(document).ready(function(){
 	}else{
 		$("#timeFrame-team-selector").change(function(){
 			$('#tf-teamMembers').find('option').remove();
+			$("#tf-task-categ").prop("disabled",false);
 			$.ajax({
 				url: "team-member-list.php?team_name="+event.target.value, 	
 				success: function(result){
@@ -85,18 +88,22 @@ $(document).ready(function(){
 	$("#tf-task-categ").change(function(){
 		$('#tf-task-selection').find('option').remove();
 		console.log("AJAX response");
-		$.ajax({
-			url: "category_unfTask_list.php?category_id="+event.target.value, 	
-			success: function(result){
-        		console.log(result);
-				//$("#tf-task-selection")
-				var x = JSON.parse(result);
-				$("#tf-task-selection").append('<option value="" disabled selected>Select a Category</option>');
-				for(i=0;i<Object.keys(x).length;i++){
-					$("#tf-task-selection").append('<option value="'+x[i].task_id+'">'+x[i].task_name+'</option>');
+		console.log($('#tf-teamMembers').find(":selected").val());
+		console.log($('#tf-teamMembers').val());
+		if($('#tf-teamMembers').val()!=null||$('#tf-teamMembers').val()!=undefined){
+			$.ajax({
+				url: "category_unfTask_list.php?category_id="+event.target.value+"&user_id="+$('#tf-teamMembers').find(":selected").val(), 	
+				success: function(result){
+					console.log(result);
+					//$("#tf-task-selection")
+					var x = JSON.parse(result);
+					$("#tf-task-selection").append('<option value="" disabled selected>Select a Task</option>');
+					for(i=0;i<Object.keys(x).length;i++){
+						$("#tf-task-selection").append('<option value="'+x[i].task_id+'">'+x[i].task_name+'</option>');
+					}
 				}
-    		}
-		});	
+			});	
+		}
 	});
 	//
 	

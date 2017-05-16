@@ -107,6 +107,18 @@ class Task{
 			echo "somethings wrong";
 		}		
 	}
+	
+	public function getTaskUnAssigned($category_id,$member_id){
+		$query = "SELECT * FROM ".$this->table_task." WHERE category_id=? AND user_id=? AND status<>2";
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$category_id);
+		$stmt->bindParam(2,$member_id);
+		if($stmt->execute()){
+			return $stmt;
+		}else{
+			echo "somethings wrong";
+		}		
+	}
 
 	public function updateTask($task_id,$est_date,$est_time,$member_id){
 		
