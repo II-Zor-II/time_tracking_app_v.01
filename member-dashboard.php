@@ -79,7 +79,12 @@ if(isset($_GET['user_id'])){
     	<td></td>
     	<td></td>
     	<td></td>
-    	<td><strong><?php $member = new Member($db); $member->calculateTotalHours($user_id,$task);?></strong></td>
+    	<td><strong><?php 
+			if(isset($_GET{'user_id'}))
+			{
+				$member = new Member($db); $member->calculateTotalHours($_GET['user_id'],$task);
+			}
+			?></strong></td>
     </tr>
     </tbody>
     </table>	

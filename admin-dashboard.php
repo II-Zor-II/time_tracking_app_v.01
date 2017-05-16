@@ -20,7 +20,7 @@ $db = $database->getConnection();
 	</div>
 	<div class="row">
 		<div class="col-xs-4">
-			Show   <select name="cars">
+			Show   <select name="num-of-entries">
 				<?php 
 				for($i=10;$i>0;$i--){
 					echo "<option value='".$i."'>".$i."</option>";

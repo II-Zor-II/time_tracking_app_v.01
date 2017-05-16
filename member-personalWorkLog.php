@@ -2,6 +2,7 @@
 include_once 'header.php';
 include_once 'db/db.php';
 include_once 'objects/task.php';
+include_once 'objects/member.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -39,9 +40,22 @@ $task = new Task($db);
 	</div>
 
 	<div class="row time-timer-container">
-			<h3><strong>Log</strong></h3>
-			<button id="selct-time-btn" class="btn btn-primary">Select by Time</button>
-			<button id="selct-timr-btn" class="btn btn-primary">Select by Timer</button>
+			<h3><strong>Log</strong></h3><?php 
+			$member = new Member($db);
+			$stmt2 = $member->getUserSettings($_GET['user_id']);
+			$row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+			//echo $row2['settings'];
+			if($row2['settings']=='timer'){
+				echo '<input style="display:none" value="timer" id="mpw-Settings"/>';
+				echo '<button id="selct-timr-btn" class="btn btn-primary">Select by Timer</button>';
+			}else if($row2['settings']=='clock'){
+				echo '<input  style="display:none" value="time" id="mpw-Settings"/>';
+				echo '<button id="selct-time-btn" class="btn btn-primary">Select by Time</button>';
+			}else{	
+				echo '<button id="selct-time-btn" class="btn btn-primary">Select by Time</button> ';
+				echo '<button id="selct-timr-btn" class="btn btn-primary">Select by Timer</button> ';
+			}
+			?>	
 		<hr>
 			<table id="time-form" class="table table-bordered">
 				<tr>

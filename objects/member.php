@@ -147,5 +147,19 @@ class Member{
 			echo '</script>';
 		}
 	}
+	
+	public function getUserSettings($user_id){ // will be used later to check for duplicate usernames
+		$query = "SELECT settings FROM ".$this->table_members." WHERE user_id=?"; //LIMIT {$from_record_num},{$records_per_page}"
+		$this->user_id = $user_id;
+		$stmt = $this->con->prepare($query);
+		$stmt->bindParam(1,$this->user_id);
+		if($stmt->execute()){
+			return $stmt;
+		}else{
+			echo '<script language="javascript">';
+			echo 'alert("Failed")';
+			echo '</script>';
+		}
+	}
 }
 ?>

@@ -14,7 +14,6 @@ include_once 'header.php';
 			<input type="text" class="form-control" id="password" name="password" placeholder="" /> </div>
 		<input type="submit" name="submit" class="btn btn-primary">
 	</div>
-	
 </form>
 <?php 	
 	

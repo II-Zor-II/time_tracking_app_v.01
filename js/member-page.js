@@ -19,6 +19,17 @@ $(document).ready(function(){
 	let date;
 	let strtTime;
 	
+	console.log($("#mpw-Settings").val());
+	if($("#mpw-Settings").val()=='timer'){
+		$.when($("#time-form,#timeframe-div").hide()).then(function(){
+			$("#timer-form").show();
+			$("#LogIdentifier").attr("value",2);
+			console.log($("#LogIdentifier").val());
+		});
+	}else if($("#mpw-Settings").val()=='time'){
+		$("#LogIdentifier").attr("value",1);
+		console.log($("#LogIdentifier").val());
+	}
 	$("#mem-myWorklog").click(function(){
 		window.location.href="/tmq/member-personalWorkLog.php?user_id="+$(this).attr("value")+"&username="+$(this).attr("name");
 	});
