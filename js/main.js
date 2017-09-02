@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
 	//hides certain selection boxes
- 
+ // this declares the absolute pathinfo
     var a = window.location.href.split("/");
     var b = a.slice(0,-1);
     var path = b.join("/");
@@ -134,7 +134,7 @@ function randString(){
   var dataSet = possible.split(','); 
   var text = '';
  // change 6 for password length here
-  for(var i=0; i < 6; i++) {
+  for(var i=0; i < 8; i++) {
 	text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;

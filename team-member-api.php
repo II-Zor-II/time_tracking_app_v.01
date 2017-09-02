@@ -10,5 +10,5 @@ $stmt = $members->getmemberByUID($_GET['user_id']);
 $outputArr = array();
 $outputArr = $stmt->fetch(PDO::FETCH_ASSOC);
 
-echo  json_encode($outputArr);
+echo json_encode($outputArr);
 ?>
